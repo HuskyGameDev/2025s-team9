@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 //This acts as a database for giving enemies targets as well as a way of spawning them in
 public class EnemyDatabase : MonoBehaviour
@@ -24,17 +25,41 @@ public class EnemyDatabase : MonoBehaviour
 
     //Store the nearest of each gameobject to pass onto enemies quickly (only update these when the updateTargetDatabase method is called)
     //The indicies correspond to how many spawners there are (and their number)
-    private GameObject[] nearestStrong = null;
-    private GameObject[] nearestWeak = null;
-    [SerializeField] private GameObject[] nearestTarget = null; //TODO: this shouldn't be serialized (probably)
+    private GameObject[] nearestStrong;
+    private GameObject[] nearestWeak;
+    private GameObject[] nearestTarget;
+    
+    //This updates the listings of spawners and their corresponding target arrays WARNING: this must be called before updateTargetDatabase
+    //If you're not adding a spawn location just pass null (do this to instantiate the target arrays if you're just setting spawner locations through the editor)
+    public void updateSpawnerListings(GameObject spawnLocation)
+    {
+        //add a new spawn location
+        if(spawnLocation != null)
+        {
+            //TODO: do stuff here
+        }
+
+        nearestStrong = new GameObject[spawners.Length];
+        nearestWeak = new GameObject[spawners.Length];
+        nearestTarget = new GameObject[spawners.Length];
+    }
 
     //Update the target database with the objects id to remove or add it, call this to kill towers
+    //This should be called when towers are placed or destroyed
     public void updateTargetDatabase(GameObject updatedTarget, bool remove)
     {
         //if remove is true take the object out of the database and then destroy it
-        Destroy(updatedTarget);
+        if(remove && updatedTarget != null)
+            Destroy(updatedTarget);
 
         //update various target listings
+        for (int i = 0; i < spawners.Length; i++)
+        {
+            //TODO: do the math to do these correctly, for now just gonna find a thing tagged with target
+            nearestStrong[i] = GameObject.FindGameObjectWithTag("Target");
+            nearestWeak[i] = GameObject.FindGameObjectWithTag("Target");
+            nearestTarget[i] = GameObject.FindGameObjectWithTag("Target");
+        }
     }
 
     //return a new target according to the given target type and the objects spawn location
@@ -57,12 +82,15 @@ public class EnemyDatabase : MonoBehaviour
     }
 
     //Spawn "count" amount of the given enemy type at the given spawner (TODO: maybe change them to have strings for names?)
-    public void spawnEnemies(GameObject enemyPrefab, int count, int spawner)
+    public void spawnEnemies(GameObject enemyPrefab, int count, int spawnerNum)
     {
-        //spawn enemy
-        GameObject newSpawn = Instantiate(enemyPrefab);
+        for (int i = 0; i < count; i++)
+        {
+            //spawn enemy, have their location offset ever so slightly so the physics trigger and push them apart (otherwise they'll all be inside each other)
+            GameObject newSpawn = Instantiate(enemyPrefab, spawners[spawnerNum].transform.position + new Vector3(0.0001f*i,0.0001f*i,0), Quaternion.identity);
 
-        //set spawn info - spawn location, enemy database (this script)
-        newSpawn.GetComponent<EnemyTargetFinder>().setSpawnInfo(spawner, this.GetComponent<EnemyDatabase>());
+            //set spawn info - spawn location, enemy database (this script)
+            newSpawn.GetComponent<EnemyTargetFinder>().setSpawnInfo(spawnerNum, this.GetComponent<EnemyDatabase>());
+        }
     }
 }
