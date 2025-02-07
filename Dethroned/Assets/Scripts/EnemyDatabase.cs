@@ -26,7 +26,7 @@ public class EnemyDatabase : MonoBehaviour
     //The indicies correspond to how many spawners there are (and their number)
     private GameObject[] nearestStrong = null;
     private GameObject[] nearestWeak = null;
-    private GameObject[] nearestTarget = null;
+    [SerializeField] private GameObject[] nearestTarget = null; //TODO: this shouldn't be serialized (probably)
 
     //Update the target database with the objects id to remove or add it, call this to kill towers
     public void updateTargetDatabase(GameObject updatedTarget, bool remove)
@@ -38,10 +38,21 @@ public class EnemyDatabase : MonoBehaviour
     }
 
     //return a new target according to the given target type and the objects spawn location
-    public Transform getNewTarget(EnemyTargetFinder.TargetType tType, GameObject spawnLocation)
+    public Transform getNewTarget(EnemyTargetFinder.TargetType tType, int spawnLocation)
     {
+        switch(tType)
+        {
+            case EnemyTargetFinder.TargetType.CLOSEST:
+                return nearestTarget[spawnLocation].transform;
 
+            case EnemyTargetFinder.TargetType.STRONG:
+                return nearestStrong[spawnLocation].transform;
 
+            case EnemyTargetFinder.TargetType.WEAK:
+                return nearestWeak[spawnLocation].transform;
+        }
+
+        //something went wrong
         return null;
     }
 
@@ -49,9 +60,9 @@ public class EnemyDatabase : MonoBehaviour
     public void spawnEnemies(GameObject enemyPrefab, int count, int spawner)
     {
         //spawn enemy
+        GameObject newSpawn = Instantiate(enemyPrefab);
 
-        //give them a target
-
-        //make sure they know which spawner is their parent
+        //set spawn info - spawn location, enemy database (this script)
+        newSpawn.GetComponent<EnemyTargetFinder>().setSpawnInfo(spawner, this.GetComponent<EnemyDatabase>());
     }
 }
