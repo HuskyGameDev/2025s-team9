@@ -8,6 +8,9 @@ using UnityEngine;
 /// </summary>
 public abstract class TowerBase : MonoBehaviour
 {
+    [Header("Tower Costs")]
+    public float CostOfTower;
+
     [Header("Tower Health")]
     public float MaxHealth = 100;
     protected float _health;
@@ -48,40 +51,41 @@ public abstract class TowerBase : MonoBehaviour
         // sorts by distance from tower elements at index 0 are closer than elements at index n
         _detectedEnemies = _detectedEnemies.OrderBy(x => Vector2.Distance(x.transform.position, transform.position)).ToList();
 
-        switch (targetPrio)
-        {
+        if (_detectedEnemies.Count != 0)
+            switch (targetPrio)
+            {
 
-            case TargetingPriority.CLOSE:
-                _target = _detectedEnemies[0].gameObject;
-                break;
+                case TargetingPriority.CLOSE:
+                    _target = _detectedEnemies[0].gameObject;
+                    break;
 
-            case TargetingPriority.FAR:
-                _target = _detectedEnemies[_detectedEnemies.Count - 1].gameObject;
-                break;
+                case TargetingPriority.FAR:
+                    _target = _detectedEnemies[_detectedEnemies.Count - 1].gameObject;
+                    break;
 
-            case TargetingPriority.CASTLE:
-                GameObject closesetToCastle = _detectedEnemies[0].gameObject;
-                float closestDist = Vector2.Distance(closesetToCastle.transform.position, _castle.transform.position);
-                foreach (Collider2D e in _detectedEnemies)
-                {
-                    var dist = Vector2.Distance(e.transform.position, _castle.transform.position);
-                    if (closestDist > dist)
+                case TargetingPriority.CASTLE:
+                    GameObject closesetToCastle = _detectedEnemies[0].gameObject;
+                    float closestDist = Vector2.Distance(closesetToCastle.transform.position, _castle.transform.position);
+                    foreach (Collider2D e in _detectedEnemies)
                     {
-                        closestDist = dist;
-                        closesetToCastle = e.gameObject;
+                        var dist = Vector2.Distance(e.transform.position, _castle.transform.position);
+                        if (closestDist > dist)
+                        {
+                            closestDist = dist;
+                            closesetToCastle = e.gameObject;
+                        }
                     }
-                }
-                _target = closesetToCastle;
-                break;
+                    _target = closesetToCastle;
+                    break;
 
-            case TargetingPriority.WEAK:
-                Debug.LogWarning($"Update detectEnemies() to target Weak enemy types");
-                break;
+                case TargetingPriority.WEAK:
+                    Debug.LogWarning($"Update detectEnemies() to target Weak enemy types");
+                    break;
 
-            case TargetingPriority.STRONG:
-                Debug.LogWarning($"Update detectEnemies() to target Strong enemy types");
-                break;
-        }
+                case TargetingPriority.STRONG:
+                    Debug.LogWarning($"Update detectEnemies() to target Strong enemy types");
+                    break;
+            }
     }
     private IEnumerator randomUpdate()
     {

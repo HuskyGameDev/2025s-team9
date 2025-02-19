@@ -6,13 +6,15 @@ using System;
 public class GameController : MonoBehaviour
 {
     //State related stuff
-    private enum State {build, defend, intermission}; //States for state machine 
-    State state = State.build; //Default into build state
-    private bool canBuild = true; // Hopefully helpful 
+    public enum State {build, defend, intermission}; //States for state machine 
+    public static State state = State.build; //Default into build state
+    [HideInInspector]
+    public static bool canBuild = true; // Hopefully helpful 
 
     //Income related stuff
     private bool taxesRaised = false; //Keep track if taxes were raised or not (also for difficulty)
     private int income = 100; //Base income 
+    public static float currency;
 
     //Difficulty scale stuff
     private float diffMult = 0; //Difficulty multiplier for taxes
@@ -27,6 +29,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         prevEnemiesLeft = 10; //Set to base amount first
+        currency = income;
     }
 
 
@@ -76,6 +79,7 @@ public class GameController : MonoBehaviour
         canBuild = false;
         if (enemiesLeft == 0) {
             state = State.build;
+            currency += income;
             Debug.Log("Wave won");
         }
         if (Input.GetKeyDown(KeyCode.L)) {
