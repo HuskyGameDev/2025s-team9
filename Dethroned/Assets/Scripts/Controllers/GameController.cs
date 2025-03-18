@@ -19,8 +19,9 @@ public class GameController : MonoBehaviour
     //Difficulty scale stuff
     private float diffMult = 0; //Difficulty multiplier for taxes
     private int scale = 1; //Natural scale of enemy spawns (each tick is an extra enemy)
-    int prevEnemiesLeft; //Used to calcualte new amount of enemies needed
-    int enemiesLeft; //Keeps track of current enemies left
+    int prevpoints; //Used to calcualte new amount of enemies needed
+    int points; //Total amount of enemies to spawn
+    int pointsKilled; //How many points of enemies the player has killed
 
     //Winning
     int soulsCount = 0;
@@ -28,7 +29,7 @@ public class GameController : MonoBehaviour
     
     void Start()
     {
-        prevEnemiesLeft = 10; //Set to base amount first
+        prevpoints = 10; //Set to base amount first
         currency = income;
     }
 
@@ -56,7 +57,6 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F)) {
             state = State.intermission;
             Debug.Log("Now choose to raise or lower taxes");
-            enemiesLeft = calcEnemies();
         }
     }
 
@@ -72,6 +72,7 @@ public class GameController : MonoBehaviour
             state = State.defend;
             Debug.Log("Taxes not raised, now defending");
         }
+        points = calcEnemies();
     }
 
 
@@ -81,32 +82,31 @@ public class GameController : MonoBehaviour
         if (soulsCount >= 20) {
             WinGame();
         }
-        if (enemiesLeft == 0) {
+        if (points == 0) {
             state = State.build;
             currency += income;
             Debug.Log("Wave won");
         }
         if (Input.GetKeyDown(KeyCode.L)) {
-            enemiesLeft --;
+            points --;
         }
     }
 
 
     int calcEnemies() {
         if (diffMult != 0) {
-            return (int)Math.Round((prevEnemiesLeft + scale) * diffMult);
+            return (int)Math.Round((prevpoints + scale) * diffMult);
         } else { 
-            return prevEnemiesLeft + scale;
+            return prevpoints + scale;
         }
     }
 
-    public void EnemyDeath(int souls, int points) {
+    public void EnemyDeath(int souls, int empoints) {
         soulsCount += souls;
-        enemiesLeft -= points;
+        pointsKilled += empoints;
     }
 
     public void GameOver() {
-        //LevelManager.instance.GameOver();
         gameObject.SetActive(false);
     }
 
