@@ -77,6 +77,10 @@ public class GameController : MonoBehaviour
 
     void Defend() {
         canBuild = false;
+        //TODO: change this to a more fitting value
+        if (soulsCount >= 20) {
+            WinGame();
+        }
         if (enemiesLeft == 0) {
             state = State.build;
             currency += income;
@@ -94,6 +98,20 @@ public class GameController : MonoBehaviour
         } else { 
             return prevEnemiesLeft + scale;
         }
+    }
+
+    public void EnemyDeath(int souls, int points) {
+        soulsCount += souls;
+        enemiesLeft -= points;
+    }
+
+    public void GameOver() {
+        //LevelManager.instance.GameOver();
+        gameObject.SetActive(false);
+    }
+
+    public void WinGame() {
+        gameObject.SetActive(false);
     }
 
     
