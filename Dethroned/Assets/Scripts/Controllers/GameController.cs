@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     public static float currency;
 
     //Difficulty scale stuff
-    private float diffMult = 0; //Difficulty multiplier for taxes
+    private float diffMult = 1.25f; //Difficulty multiplier for taxes
     private int scale = 1; //Natural scale of enemy spawns (each tick is an extra enemy)
     int prevpoints; //Used to calcualte new amount of enemies needed
     int points; //Total amount of enemies to spawn
@@ -82,13 +82,13 @@ public class GameController : MonoBehaviour
         if (soulsCount >= 20) {
             WinGame();
         }
-        if (points == 0) {
+        if (points == pointsKilled) {
             state = State.build;
             currency += income;
             Debug.Log("Wave won");
         }
         if (Input.GetKeyDown(KeyCode.L)) {
-            points --;
+            pointsKilled ++;
         }
     }
 
