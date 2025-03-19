@@ -1,19 +1,88 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Projectile : MonoBehaviour
 {
-    public GameObject target;
+    private GameObject __target;
+    private Vector3 __targetStart;
     public Vector2 offset, bounds;
-    public LayerMask EnemyLayer;
+    private LayerMask __enemyLayer;
 
+    private float __speed;
+    [HideInInspector] public bool _penetration;
+
+    [HideInInspector] public UnityEvent<Projectile,GameObject> enemyHit;
+
+    private AudioSource __audioSource;
+    private Rigidbody2D __rb;
+
+    public void Init()
+    {
+        __target = null;
+        __rb.velocity = Vector2.zero;
+    }
+
+    public void Init(GameObject tar, LayerMask EL, float speed, bool penetration)
+    {
+        // update enemy targeting.
+        __target = tar;
+        __targetStart = __target.transform.position;
+        __enemyLayer = EL;
+        _penetration = penetration;
+
+        // position the projectile
+        __speed = speed;
+        var dir = (tar.transform.position - transform.position).normalized;
+        transform.right = dir;
+    }
+
+    private void Awake()
+    {
+        __audioSource = GetComponent<AudioSource>();
+        __rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void PlayAudio(AudioClip clip)
+    {
+        __audioSource.PlayOneShot(clip);
+    }
+
+    private void Update()
+    {
+        if (__target && !_penetration) // if its not a penetrating projectile then track the target.
+        {
+            var dir = (__target.transform.position - transform.position).normalized;
+            transform.right = dir;
+            transform.position+=(dir*__speed*Time.deltaTime);
+        }else if (__target) // if it is a penetrating projectile then shoot towards the first position you saw the target at.
+        {
+            var dir = (__targetStart - transform.position).normalized;
+            transform.right = dir;
+            transform.position += (dir * __speed * Time.deltaTime);
+            if(Vector3.Distance(transform.position,__targetStart) < 0.1f)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+    }
+
+    Collider2D prevCollision = null;
     private void FixedUpdate()
     {
-        var collision = Physics2D.OverlapBox(transform.position + (Vector3)offset, bounds, Vector2.Angle(Vector2.zero, target.transform.position), EnemyLayer);
+        var collision = Physics2D.OverlapBox(transform.position + (Vector3)offset, bounds, Vector2.Angle(Vector2.zero, __target.transform.position), __enemyLayer);
         if (collision)
-            if (collision.gameObject.Equals(target))
+        {
+            if (collision.gameObject.Equals(__target)) // hit target
+            {
+                enemyHit.Invoke(this, __target);
                 gameObject.SetActive(false);
+            }
+            else if (!collision.Equals(prevCollision) && _penetration) enemyHit.Invoke(this, collision.gameObject); // we hit an enemy just not THE target and we are a penetrating projectile.
+            prevCollision = collision;
+        }
+            
     }
 
     private void OnValidate()

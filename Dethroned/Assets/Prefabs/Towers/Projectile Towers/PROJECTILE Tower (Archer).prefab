@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7090491798923875091}
   - component: {fileID: 8470476428843814397}
   m_Layer: 6
-  m_Name: Tower (Archer)
+  m_Name: PROJECTILE Tower (Archer)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 514156421462925942}
+  - {fileID: 792653527651824309}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8470476428843814397
@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CostOfTower: 50
-  RepairCost: 25
   MaxHealth: 100
   radius: 5
   EnemyLayer:
@@ -55,9 +54,12 @@ MonoBehaviour:
   targetPrio: 1
   TowerDamage: 5
   TowerAttackSpeed: 1
-  TowerProjectileSpeed: 200
+  TowerProjectileSpeed: 10
+  TowerProjectileSounds:
+  - {fileID: 8300000, guid: bb9d419527c9d984a93a9a689363d39c, type: 3}
+  - {fileID: 8300000, guid: 24b36ba88964d0049ac2533bfbdf1751, type: 3}
   ProjectilePrefab: {fileID: 6848864125745578395, guid: 9c3a3d7a21de9294a8d018dfaedb0aaa, type: 3}
---- !u!1 &3052355886037602002
+--- !u!1 &2151924196652895761
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,37 +67,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 514156421462925942}
-  - component: {fileID: 5148720841881962225}
+  - component: {fileID: 792653527651824309}
+  - component: {fileID: 9066062939881904472}
   m_Layer: 0
-  m_Name: GFX
+  m_Name: ArrowTowerGFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &514156421462925942
+--- !u!4 &792653527651824309
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3052355886037602002}
+  m_GameObject: {fileID: 2151924196652895761}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7090491798923875091}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5148720841881962225
+--- !u!212 &9066062939881904472
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3052355886037602002}
+  m_GameObject: {fileID: 2151924196652895761}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -130,7 +132,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6ec1311523229034ea668ffeb59c1b2f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

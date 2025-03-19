@@ -40,25 +40,32 @@ public class TowerBuilder : MonoBehaviour
             var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseWorldPos = new Vector3(Mathf.Round(mouseWorldPos.x), Mathf.Round(mouseWorldPos.y), 0f);
 
-            var costOfTower = currentTower.Prefab.GetComponent<TowerBase>().CostOfTower;
-            if (Input.GetKeyUp(KeyCode.Mouse0) && costOfTower <= GameController.currency) // create
+            // check if tower already exists at current position.
+            bool __towerExists = false;
+            GameObject __tower = null;
+            foreach (var tower in _createdTowers)
+            {
+                if (tower.transform.position.Equals(mouseWorldPos))
+                {
+                    __tower = tower;
+                    __towerExists = true;
+                    break;
+                }
+            }
+
+            // if you are trying to build the tower.
+            var costOfTower = currentTower.Prefab.GetComponent<Tower>().CostOfTower;
+            if (Input.GetKeyUp(KeyCode.Mouse0) && costOfTower <= GameController.currency && !__towerExists) // create
             {
                 _createdTowers.Add(Instantiate(currentTower.Prefab, mouseWorldPos, Quaternion.identity));
                 GameController.currency -= costOfTower;
             }
-            else if (Input.GetKeyUp(KeyCode.Mouse1)) // destroy
+            else if (Input.GetKeyUp(KeyCode.Mouse1) && __towerExists) // destroy the existing tower.
             {
-                foreach(var tower in _createdTowers)
-                {
-                    if (tower.transform.position.Equals(mouseWorldPos))
-                    {
-                        _createdTowers.Remove(tower);
-                        var refund = tower.GetComponent<TowerBase>().CostOfTower;
-                        GameController.currency += refund;
-                        Destroy(tower);
-                        break;
-                    }
-                }
+                _createdTowers.Remove(__tower);
+                var refund = __tower.GetComponent<Tower>().CostOfTower;
+                GameController.currency += refund;
+                Destroy(__tower);
             }
         }
 

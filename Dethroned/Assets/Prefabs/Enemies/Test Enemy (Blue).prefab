@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 371632077477696537}
   - component: {fileID: -8141400447153508992}
   - component: {fileID: 3482597390109352070}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Test Enemy (Blue)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
