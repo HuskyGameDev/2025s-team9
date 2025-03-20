@@ -38,6 +38,9 @@ public class TowerBuilder : MonoBehaviour
     public List<GameObject> CreatedTowers { get; private set; }
     public TowerSystem currentTower { get; private set; }
 
+    public List<AudioClip> TowerDestructionAudio = new List<AudioClip>();
+    public List<AudioClip> TowerConstructionAudio = new List<AudioClip>();
+
     private void Start()
     {
         if (towers.Count > 0)
@@ -83,12 +86,18 @@ public class TowerBuilder : MonoBehaviour
                 __tower.transform.rotation = Quaternion.identity;
                 __tower.SetActive(true);
                 GameController.currency -= costOfTower;
+
+                if (TowerConstructionAudio.Count > 0)
+                    AudioController.Instance.PlaySound(TowerConstructionAudio[Random.Range(0, TowerConstructionAudio.Count)]);
             }
             else if (Input.GetKeyUp(KeyCode.Mouse1) && __towerExists) // destroy the existing tower.
             {
                 var refund = __tower.GetComponent<Tower>().CostOfTower;
                 GameController.currency += refund;
                 __tower.SetActive(false);
+
+                if (TowerDestructionAudio.Count > 0)
+                    AudioController.Instance.PlaySound(TowerDestructionAudio[Random.Range(0, TowerDestructionAudio.Count)]);
             }
 
 
