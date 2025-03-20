@@ -561,10 +561,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towers:
-  - Keybind: 113
+  - name: 
+    Keybind: 113
     Prefab: {fileID: 1452294287098493713, guid: 1a22010f1fa88ce4584c68a6918ea04f, type: 3}
-  - Keybind: 119
+    sprite: {fileID: 0}
+  - name: 
+    Keybind: 119
     Prefab: {fileID: 1452294287098493713, guid: 2925ef789b0a1db459c459e0e5e577c1, type: 3}
+    sprite: {fileID: 0}
 --- !u!114 &260886452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -930,6 +934,7 @@ GameObject:
   m_Component:
   - component: {fileID: 969734404}
   - component: {fileID: 969734403}
+  - component: {fileID: 969734405}
   m_Layer: 6
   m_Name: Weak Tower
   m_TagString: Target
@@ -950,7 +955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CostOfTower: 50
-  MaxHealth: 50
+  MaxHealth: 1
   radius: 5
   EnemyLayer:
     serializedVersion: 2
@@ -980,6 +985,41 @@ Transform:
   - {fileID: 1149267704}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &969734405
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969734402}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &1050662211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,6 +1399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1302870028}
   - component: {fileID: 1302870027}
+  - component: {fileID: 1302870029}
   m_Layer: 6
   m_Name: Strong Tower
   m_TagString: Target
@@ -1409,6 +1450,41 @@ Transform:
   - {fileID: 1263299533}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1302870029
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302870026}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &1342001178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,6 +1760,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8937736607255166080}
   - component: {fileID: 7773892183191544430}
+  - component: {fileID: 8937736607255166081}
   m_Layer: 6
   m_Name: Closer Tower
   m_TagString: Target
@@ -1801,6 +1878,41 @@ Transform:
   - {fileID: 1544548310461373734}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &8937736607255166081
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741072331451585666}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

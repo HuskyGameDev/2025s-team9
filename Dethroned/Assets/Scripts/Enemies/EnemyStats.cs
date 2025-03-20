@@ -17,6 +17,9 @@ public class EnemyStats : MonoBehaviour
 
     [SerializeField] float enemyDamage = 0;
 
+    private bool touchingTower = false;
+    private Tower touchedTower = null;
+
     //This gets the ai's pathfinding script, we'll use it to set speed
     private AIPath aiPath = null;
 
@@ -30,11 +33,37 @@ public class EnemyStats : MonoBehaviour
         enemyCurrentHealth = enemyMaxHealth;
     }
 
+    //doing things here to keep updates consistant (not tied to fps) this should run around 50 times per second
     private void FixedUpdate()
     {
+        if (touchingTower && touchedTower != null)
+        {
+            touchedTower.DamageHealth(enemyDamage * Time.fixedDeltaTime);
+        }
+
         //When the enemies run out of health destroy them
         if(enemyCurrentHealth <= 0)
             Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //mark that the enemy is touching a tower
+        if (collision.collider.gameObject.CompareTag("Target"))
+        {
+            touchingTower = true;
+            touchedTower = collision.collider.gameObject.GetComponent<Tower>();
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        //mark that the enemy is no longer touching a tower
+        if (collision.collider.gameObject.CompareTag("Target"))
+        {
+            touchingTower = false;
+            touchedTower = null;
+        }
     }
 
     //called when the enemy dies
