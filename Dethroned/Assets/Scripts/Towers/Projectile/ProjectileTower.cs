@@ -71,8 +71,6 @@ public class ProjectileTower : Tower
         // if there is a target to attack.
         if (_target)
         {
-
-
             // Create a projectile aimed at the enemy and shoot it
             var proj = __launchProjectile();
 
@@ -84,6 +82,11 @@ public class ProjectileTower : Tower
         }
     }
 
+    /// <summary>
+    /// whenever a projectile spawned from the tower hits an enemy it will attempt to call this function. and upon hitting the destination target will remove the listener from the projectile.
+    /// </summary>
+    /// <param name="proj">projectile that is causing the damage</param>
+    /// <param name="enemy">the enemy hit by the projectile</param>
     protected virtual void _damageEnemy(Projectile proj, GameObject enemy)
     {
         if (enemy.Equals(_target))
@@ -97,15 +100,24 @@ public class ProjectileTower : Tower
                 var hitObj = hit.collider.gameObject;
                 if (hitObj.Equals(enemy))
                 {
-                    Debug.Log($"_damageEnemy() Damaged {hitObj.name} for {TowerDamage}");
+                    __damageActual(hitObj);
                 }
             }
             return;
         }
 
-        _target.GetComponent<EnemyStats>().DamageEnemy(TowerDamage);
+        __damageActual(_target);
 
         return;
+    }
+
+    /// <summary>
+    /// will do the call to the gameobject and do the damage to the gameobject.
+    /// </summary>
+    /// <param name="Enemy">target that is going to be damaged.</param>
+    protected virtual void __damageActual(GameObject Enemy)
+    {
+        Enemy.GetComponent<EnemyStats>().DamageEnemy(TowerDamage);
     }
 
     private IEnumerator __attackEvent()
@@ -113,24 +125,29 @@ public class ProjectileTower : Tower
         while (true)
         {
             var wait = new WaitForSeconds(TowerAttackSpeed + Random.Range(-0.1f, 0.1f));
+            yield return wait;
 
             _attackEnemy();
 
-            yield return wait;
         }
     }
 
     protected override void Start()
     {
         base.Start();
+    }
+
+    protected override void startAllCoroutines()
+    {
+        base.startAllCoroutines();
         StartCoroutine(__attackEvent());
     }
 
     private GameObject __fetchProjectile()
     {
-        GameObject obj = _projectiles.Find(p => !p.activeInHierarchy && p.name.Equals(ProjectilePrefab.name + "(Clone)"));
-        if (!obj) { obj = Instantiate(ProjectilePrefab); _projectiles.Add(obj); }
-        return obj;
+        //GameObject obj = _projectiles.Find(p => !p.activeInHierarchy && p.name.Equals(ProjectilePrefab.name + "(Clone)"));
+        //if (!obj) { obj = Instantiate(ProjectilePrefab); _projectiles.Add(obj); }
+        return DethronedUtility.FetchPooledGameObject(_projectiles,ProjectilePrefab);
     }
     private Projectile __launchProjectile()
     {

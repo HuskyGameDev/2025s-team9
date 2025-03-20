@@ -86,7 +86,17 @@ public abstract class Tower : MonoBehaviour
         _health = MaxHealth;
         _castle = GameObject.FindGameObjectWithTag("Player");
         if (!_castle) Debug.LogError($"{name} couldn't find castle (looking for gameobject with tag \"Player\")");
+        
+    }
+
+    protected virtual void startAllCoroutines()
+    {
         StartCoroutine(__randomUpdate());
+    }
+
+    protected virtual void OnEnable()
+    {
+        startAllCoroutines();
     }
 
     protected virtual void OnDrawGizmosSelected()

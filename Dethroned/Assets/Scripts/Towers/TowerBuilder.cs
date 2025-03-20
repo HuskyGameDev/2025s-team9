@@ -1,26 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerBuilder : MonoBehaviour
 {
+
+    public static TowerBuilder Instance;
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     [System.Serializable]
     public class TowerSystem
     {
+        [Header("Tower Information")]
+        public string name;
+
+        [Header("Tower Models")]
         [Tooltip("What key does the user press to be able to place this tower.")]
         public KeyCode Keybind;
         [Tooltip("What tower does the player spawn")]
         public GameObject Prefab;
+        public Sprite sprite;
     }
 
     public List<TowerSystem> towers = new List<TowerSystem>();
-    private List<GameObject> _createdTowers = new List<GameObject>();
-    TowerSystem currentTower;
+    public List<GameObject> CreatedTowers { get; private set; }
+    public TowerSystem currentTower { get; private set; }
 
     private void Start()
     {
         if (towers.Count > 0)
             currentTower = towers[0];
+        if (CreatedTowers == null) CreatedTowers = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -43,9 +64,9 @@ public class TowerBuilder : MonoBehaviour
             // check if tower already exists at current position.
             bool __towerExists = false;
             GameObject __tower = null;
-            foreach (var tower in _createdTowers)
+            foreach (var tower in CreatedTowers)
             {
-                if (tower.transform.position.Equals(mouseWorldPos))
+                if (tower.transform.position.Equals(mouseWorldPos) && tower.activeInHierarchy)
                 {
                     __tower = tower;
                     __towerExists = true;
@@ -57,15 +78,17 @@ public class TowerBuilder : MonoBehaviour
             var costOfTower = currentTower.Prefab.GetComponent<Tower>().CostOfTower;
             if (Input.GetKeyUp(KeyCode.Mouse0) && costOfTower <= GameController.currency && !__towerExists) // create
             {
-                _createdTowers.Add(Instantiate(currentTower.Prefab, mouseWorldPos, Quaternion.identity));
+                __tower = DethronedUtility.FetchPooledGameObject(CreatedTowers,currentTower.Prefab);
+                __tower.transform.position = mouseWorldPos;
+                __tower.transform.rotation = Quaternion.identity;
+                __tower.SetActive(true);
                 GameController.currency -= costOfTower;
             }
             else if (Input.GetKeyUp(KeyCode.Mouse1) && __towerExists) // destroy the existing tower.
             {
-                _createdTowers.Remove(__tower);
                 var refund = __tower.GetComponent<Tower>().CostOfTower;
                 GameController.currency += refund;
-                Destroy(__tower);
+                __tower.SetActive(false);
             }
         }
 
