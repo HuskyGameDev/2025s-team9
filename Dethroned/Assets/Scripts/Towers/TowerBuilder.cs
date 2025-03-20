@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class TowerBuilder : MonoBehaviour
 {
@@ -55,9 +56,8 @@ public class TowerBuilder : MonoBehaviour
             }
         }
 
-        if (GameController.canBuild)
+        if (GameController.canBuild && !EventSystem.current.IsPointerOverGameObject())
         {
-
             var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseWorldPos = new Vector3(Mathf.Round(mouseWorldPos.x), Mathf.Round(mouseWorldPos.y), 0f);
 
@@ -78,7 +78,7 @@ public class TowerBuilder : MonoBehaviour
             var costOfTower = currentTower.Prefab.GetComponent<Tower>().CostOfTower;
             if (Input.GetKeyUp(KeyCode.Mouse0) && costOfTower <= GameController.currency && !__towerExists) // create
             {
-                __tower = DethronedUtility.FetchPooledGameObject(CreatedTowers,currentTower.Prefab);
+                __tower = DethronedUtility.FetchPooledGameObject(CreatedTowers, currentTower.Prefab);
                 __tower.transform.position = mouseWorldPos;
                 __tower.transform.rotation = Quaternion.identity;
                 __tower.SetActive(true);
@@ -90,6 +90,8 @@ public class TowerBuilder : MonoBehaviour
                 GameController.currency += refund;
                 __tower.SetActive(false);
             }
+
+
         }
 
     }

@@ -117,7 +117,7 @@ public class ProjectileTower : Tower
     /// <param name="Enemy">target that is going to be damaged.</param>
     protected virtual void __damageActual(GameObject Enemy)
     {
-        Enemy.GetComponent<EnemyStats>().DamageEnemy(TowerDamage);
+        Enemy.GetComponent<EnemyStats>()?.DamageEnemy(TowerDamage);
     }
 
     private IEnumerator __attackEvent()
