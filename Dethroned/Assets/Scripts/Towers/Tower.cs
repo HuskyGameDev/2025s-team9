@@ -20,7 +20,10 @@ public abstract class Tower : MonoBehaviour
         _health = Mathf.Clamp(_health - amt, 0, MaxHealth);
 
         // any special code can go after this point for example sounds, debug, particles, etc...
-        Debug.Log($"{gameObject.name} took {amt} damage.");
+        if(_health <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
     /// <summary>
     /// Restores the health of the tower UPTO its max health
