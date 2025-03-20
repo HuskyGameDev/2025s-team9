@@ -264,6 +264,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyMaxHealth: 10
   enemyCurrentHealth: 0
-  enemyMinSpeed: 1.5
-  enemyMaxSpeed: 2
+  enemySpeed: 2
+  enemySpeedVariability: 0.5
   enemyDamage: 2
