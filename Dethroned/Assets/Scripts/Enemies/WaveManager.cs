@@ -29,28 +29,17 @@ public class WaveManager : MonoBehaviour
         enemyDatabase.updateSpawnerListings(null);
     }
 
-    public void spawnEnemy()
-    {
-        enemyDatabase.updateSpawnerListings(null);
-        enemyDatabase.updateTargetDatabase(null, false);
-        enemyDatabase.spawnEnemies(weakEnemyPrefabs[spawnerNum % 3], enemySpawnCount, spawnerNum%3);
-
-        //this way each click will spawn at different spawner
-        spawnerNum++;
-    }
-
     //takes in an amount of points and splits them among varying strengths of enemies (note that the percents should be floats in the range of 0->1)
-    public void SpawnWave()
+    public void SpawnWave(int points, float maxPercentStrong, float minPercentStrong, float maxPercentMedium, float minPercentMedium)
     {
-        //function parameters
-        //int points, float maxPercentStrong, float minPercentStrong, float maxPercentMedium, float minPercentMedium
-
         //setting these here temporarily so I can test if this works with button press (without setting up UI)
+        /*
         int points = 20;
         float maxPercentStrong = .2f;
         float minPercentStrong = .1f;
         float maxPercentMedium = .3f;
         float minPercentMedium = .2f;
+        */
 
         //update the database so we have proper targeting
         enemyDatabase.updateTargetDatabase(null, false);
@@ -78,7 +67,7 @@ public class WaveManager : MonoBehaviour
                 remainingPoints -= currentCost;
 
                 //spawn the enemy
-                enemyDatabase.spawnEnemies(strongEnemyPrefabs[randomIndex], 1, spawnerNum % 3);
+                enemyDatabase.spawnEnemies(strongEnemyPrefabs[randomIndex], 1, spawnerNum % enemyDatabase.spawners.Length);
                 spawnerNum++;
             }
             else //if we can't try to find a cheaper enemy (remember arrays should be sorted low to high in terms of cost)
@@ -91,7 +80,7 @@ public class WaveManager : MonoBehaviour
                         remainingPoints -= currentCost;
 
                         //spawn the enemy
-                        enemyDatabase.spawnEnemies(strongEnemyPrefabs[i], 1, spawnerNum % 3);
+                        enemyDatabase.spawnEnemies(strongEnemyPrefabs[i], 1, spawnerNum % enemyDatabase.spawners.Length);
                         spawnerNum++;
 
                         //this is now the MOST we could possibly afford (probably not even this tbh)
@@ -123,7 +112,7 @@ public class WaveManager : MonoBehaviour
                 remainingPoints -= currentCost;
 
                 //spawn the enemy
-                enemyDatabase.spawnEnemies(mediumEnemyPrefabs[randomIndex], 1, spawnerNum % 3);
+                enemyDatabase.spawnEnemies(mediumEnemyPrefabs[randomIndex], 1, spawnerNum % enemyDatabase.spawners.Length);
                 spawnerNum++;
             }
             else //if we can't try to find a cheaper enemy (remember arrays should be sorted low to high in terms of cost)
@@ -136,7 +125,7 @@ public class WaveManager : MonoBehaviour
                         remainingPoints -= currentCost;
 
                         //spawn the enemy
-                        enemyDatabase.spawnEnemies(mediumEnemyPrefabs[i], 1, spawnerNum % 3);
+                        enemyDatabase.spawnEnemies(mediumEnemyPrefabs[i], 1, spawnerNum % enemyDatabase.spawners.Length);
                         spawnerNum++;
 
                         //this is now the MOST we could possibly afford (probably not even this tbh)
@@ -168,7 +157,7 @@ public class WaveManager : MonoBehaviour
                 remainingPoints -= currentCost;
 
                 //spawn the enemy
-                enemyDatabase.spawnEnemies(weakEnemyPrefabs[randomIndex], 1, spawnerNum % 3);
+                enemyDatabase.spawnEnemies(weakEnemyPrefabs[randomIndex], 1, spawnerNum % enemyDatabase.spawners.Length);
                 spawnerNum++;
             }
             else //if we can't try to find a cheaper enemy (remember arrays should be sorted low to high in terms of cost)
@@ -181,7 +170,7 @@ public class WaveManager : MonoBehaviour
                         remainingPoints -= currentCost;
 
                         //spawn the enemy
-                        enemyDatabase.spawnEnemies(weakEnemyPrefabs[i], 1, spawnerNum % 3);
+                        enemyDatabase.spawnEnemies(weakEnemyPrefabs[i], 1, spawnerNum % enemyDatabase.spawners.Length);
                         spawnerNum++;
 
                         //this is now the MOST we could possibly afford (probably not even this tbh)

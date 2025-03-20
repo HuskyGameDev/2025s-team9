@@ -18,7 +18,7 @@ public class EnemyDatabase : MonoBehaviour
      */
 
     //A list of objects to act as spawn locations for enemies
-    [SerializeField] private GameObject[] spawners = null;
+    [SerializeField] public GameObject[] spawners = null;
 
     //How far to look for potential targets
     [SerializeField] float searchDistance = 0;
@@ -96,6 +96,10 @@ public class EnemyDatabase : MonoBehaviour
     {
         //get all tower objects by tag
         GameObject[] towers = GameObject.FindGameObjectsWithTag("Target");
+
+        if (towers.Length <= 0)
+            Debug.LogError("Nothing was tagged as a tower");
+
 
         int strongIndex = 0;
         float strongValue = towers[0].GetComponent<Tower>().MaxHealth;

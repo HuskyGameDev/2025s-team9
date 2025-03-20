@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public GameObject buttons;
     public GameObject endBuildButton;
     public HUDController hudController;
+    [SerializeField] WaveManager waveManager;
     //State related stuff
     public enum State {build, defend, intermission}; //States for state machine 
     public static State state = State.build; //Default into build state
@@ -28,6 +29,9 @@ public class GameController : MonoBehaviour
 
     //Winning
     int soulsCount = 0;
+
+    //Thomas's Temp Stuff
+    private bool spawnEnemies = true;
 
     
     void Start()
@@ -108,11 +112,21 @@ public class GameController : MonoBehaviour
 
     void Defend() {
         canBuild = false;
+
+        //Spawn enemies (in the if since this is called every frame, we don't want that many enemies)
+        if (spawnEnemies)
+        {
+            spawnEnemies = false;
+            waveManager.SpawnWave(points, .2f, .1f, .3f, .2f);
+        }
+
         //TODO: change this to a more fitting value
         if (soulsCount >= 20) {
             WinGame();
         }
+
         if (points == pointsKilled) {
+            spawnEnemies = true; //allow more enemies to be spawned next time we reach a defend state
             state = State.build;
             if (taxesRaised) {
                 currency += (income + 50);

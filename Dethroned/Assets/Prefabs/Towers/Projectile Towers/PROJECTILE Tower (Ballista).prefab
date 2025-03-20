@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7090491798923875091}
   - component: {fileID: 8470476428843814397}
+  - component: {fileID: 6933343712878373560}
   m_Layer: 6
   m_Name: PROJECTILE Tower (Ballista)
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,14 +53,49 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2147483648
   targetPrio: 1
-  TowerDamage: 8
-  TowerAttackSpeed: 2.5
-  TowerProjectileSpeed: 12
-  penetration: 1
   ProjectilePrefab: {fileID: 6848864125745578395, guid: 9c3a3d7a21de9294a8d018dfaedb0aaa, type: 3}
   TowerProjectileSounds:
   - {fileID: 8300000, guid: bb9d419527c9d984a93a9a689363d39c, type: 3}
   - {fileID: 8300000, guid: 24b36ba88964d0049ac2533bfbdf1751, type: 3}
+  TowerDamage: 8
+  TowerAttackSpeed: 2.5
+  TowerProjectileSpeed: 12
+  penetration: 1
+--- !u!58 &6933343712878373560
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452294287098493713}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &2151924196652895761
 GameObject:
   m_ObjectHideFlags: 0

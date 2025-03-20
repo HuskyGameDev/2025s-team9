@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1495205372052418555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2663637751492153570}
+  - component: {fileID: 3502955941790056769}
+  - component: {fileID: 284855625786136498}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2663637751492153570
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495205372052418555}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.7637873, y: 0.71688825, z: -0.097742}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3502955941790056769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495205372052418555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 935a0777752d49e44adba5c1c6e6f1e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  searchDistance: 50
+--- !u!114 &284855625786136498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495205372052418555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2ffb70a5a3f624f94bc12b24e76f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strongEnemyPrefabs:
+  - {fileID: 8972197922035234405, guid: bb6b632338bfa6c42bfce811ef884c32, type: 3}
+  - {fileID: 7912951744429568011, guid: a420ed4f3adf93f499aeed4a38898377, type: 3}
+  strongEnemyPoints: 0300000003000000
+  mediumEnemyPrefabs:
+  - {fileID: 3714884017509786693, guid: afce0cfd98bebed4ab2d9a943cf306b7, type: 3}
+  - {fileID: 2292620610740664808, guid: 7f049c699a9e75044b419194b10e239f, type: 3}
+  mediumEnemyPoints: 0200000002000000
+  weakEnemyPrefabs:
+  - {fileID: 1275695925524037716, guid: c3eb37ed64dbbcd429e07ff1e891222a, type: 3}
+  - {fileID: 7751260395388197868, guid: 6e31ebafb98ad134cbba431641cba99c, type: 3}
+  weakEnemyPoints: 0100000001000000
+  enemySpawnCount: 1
+  spawnerNum: 0
+  enemyDatabase: {fileID: 3502955941790056769}
