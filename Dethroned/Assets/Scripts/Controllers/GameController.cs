@@ -5,6 +5,9 @@ using System;
 
 public class GameController : MonoBehaviour
 {
+    public GameObject buttons;
+    public GameObject endBuildButton;
+    public HUDController hudController;
     //State related stuff
     public enum State {build, defend, intermission}; //States for state machine 
     public static State state = State.build; //Default into build state
@@ -13,7 +16,7 @@ public class GameController : MonoBehaviour
 
     //Income related stuff
     private bool taxesRaised = false; //Keep track if taxes were raised or not (also for difficulty)
-    private int income = 100; //Base income 
+    private float income = 100; //Base income 
     public static float currency;
 
     //Difficulty scale stuff
@@ -30,7 +33,8 @@ public class GameController : MonoBehaviour
     void Start()
     {
         prevpoints = 10; //Set to base amount first
-        currency = income;
+        currency += income;
+        UpdateHUD();
     }
 
 
@@ -50,31 +54,57 @@ public class GameController : MonoBehaviour
             Defend();
             break;
         }
+        UpdateHUD();
     }
 
     void Build() {
         canBuild = true;
-        if (Input.GetKeyDown(KeyCode.F)) {
-            state = State.intermission;
-            Debug.Log("Now choose to raise or lower taxes");
-        }
+        endBuildButton.SetActive(true);
+    }
+
+    public void EndBuild() {
+        state = State.intermission;
+        endBuildButton.SetActive(false);
+        Debug.Log("Now choose to raise or lower taxes");
     }
 
     void Intermission() {
         canBuild = false;
-        if (Input.GetKeyDown(KeyCode.G)) {
-            taxesRaised = true;
-            income += 100;
-            state = State.defend;
-            Debug.Log("Taxes raised, now defending");
-        } else if (Input.GetKeyDown(KeyCode.H)) {
-            taxesRaised = false;
-            state = State.defend;
-            Debug.Log("Taxes not raised, now defending");
-        }
-        points = calcEnemies();
+        buttons.SetActive(true);
     }
 
+    public void IncreaseTaxes() {
+        taxesRaised = true;
+        points = calcEnemies();
+        pointsKilled = 0;
+        Debug.Log(points);
+        state = State.defend;
+        Debug.Log("Taxes raised, now defending");
+        buttons.SetActive(false);
+    }
+
+    public void KeepTaxes() {
+        taxesRaised = false;
+        points = calcEnemies();
+        pointsKilled = 0;
+        Debug.Log(points);
+        state = State.defend;
+        Debug.Log("Taxes not raised, now defending");
+        buttons.SetActive(false);
+    }
+
+    int calcEnemies() {
+        int enemies;
+        if (taxesRaised) {
+            enemies = (int)Math.Round((prevpoints + scale) * diffMult);
+            prevpoints = enemies;
+            return enemies;
+        } else {
+            enemies = prevpoints + scale;
+            prevpoints = enemies;
+            return enemies;
+        }
+    }
 
     void Defend() {
         canBuild = false;
@@ -84,26 +114,27 @@ public class GameController : MonoBehaviour
         }
         if (points == pointsKilled) {
             state = State.build;
-            currency += income;
+            if (taxesRaised) {
+                currency += (income + 50);
+                
+            } else {
+                currency += income;
+            }
             Debug.Log("Wave won");
         }
         if (Input.GetKeyDown(KeyCode.L)) {
-            pointsKilled ++;
-        }
-    }
-
-
-    int calcEnemies() {
-        if (diffMult != 0) {
-            return (int)Math.Round((prevpoints + scale) * diffMult);
-        } else { 
-            return prevpoints + scale;
+            EnemyDeath(1, 1);
         }
     }
 
     public void EnemyDeath(int souls, int empoints) {
         soulsCount += souls;
         pointsKilled += empoints;
+    }
+
+    public void UpdateHUD() {
+    hudController.Money = (int) currency;
+    hudController.Souls = soulsCount;
     }
 
     public void GameOver() {
@@ -113,6 +144,4 @@ public class GameController : MonoBehaviour
     public void WinGame() {
         gameObject.SetActive(false);
     }
-
-    
 }
