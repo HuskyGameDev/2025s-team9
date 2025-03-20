@@ -13,7 +13,8 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] float enemyMaxHealth = 0;
     [SerializeField] private float enemyCurrentHealth = 0; //Serialized so we can check enemy health in the editor
 
-    [SerializeField] float enemySpeed = 0;
+    [SerializeField] float enemyMinSpeed = 0;
+    [SerializeField] float enemyMaxSpeed = 0;
 
     [SerializeField] float enemyDamage = 0;
 
@@ -28,7 +29,7 @@ public class EnemyStats : MonoBehaviour
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 
         aiPath = GetComponent<AIPath>();
-        aiPath.maxSpeed = enemySpeed;
+        aiPath.maxSpeed = Random.Range(enemyMinSpeed, enemyMaxSpeed);
 
         enemyCurrentHealth = enemyMaxHealth;
     }
