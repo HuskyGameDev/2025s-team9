@@ -16,7 +16,7 @@ public class ExplosiveProjectileTower : ProjectileTower
             var colRes = Physics2D.OverlapCircleAll(enemy.transform.position, explosiveRadius, EnemyLayer);
             foreach (var col in colRes)
             {
-                Debug.Log($"_damageEnemy() Exploded near {col.name} for {TowerDamage} damage.");
+                __damageActual(col.gameObject);
             }
         }
     }
@@ -25,6 +25,6 @@ public class ExplosiveProjectileTower : ProjectileTower
     {
         base.OnDrawGizmosSelected();
         if(__debugEnemy)
-        Gizmos.DrawSphere(__debugEnemy.transform.position, explosiveRadius);
+            Gizmos.DrawWireSphere(__debugEnemy.transform.position, explosiveRadius);
     }
 }

@@ -63,12 +63,14 @@ public class Projectile : MonoBehaviour
             transform.position += (dir * __speed * Time.deltaTime);
             if(Vector3.Distance(transform.position,__targetStart) < 0.1f)
             {
+                // since the final target was never hit the listener from a tower is still active on this projectile so lets just clear all listening parties and disable this projectile.
+                enemyHit.RemoveAllListeners();
                 gameObject.SetActive(false);
             }
         }
     }
 
-    Collider2D prevCollision = null;
+    Collider2D prevCollision = null; // if we are a penetrating projectile then we need to keep track of previous collisions so we don't accidentally do more damage than intended to enemies.
     private void FixedUpdate()
     {
         var collision = Physics2D.OverlapBox(transform.position + (Vector3)offset, bounds, Vector2.Angle(Vector2.zero, __target.transform.position), __enemyLayer);
