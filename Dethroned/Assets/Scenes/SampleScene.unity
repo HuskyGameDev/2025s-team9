@@ -1073,7 +1073,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1473352349}
         m_TargetAssemblyTypeName: WaveManager, Assembly-CSharp
-        m_MethodName: spawnEnemy
+        m_MethodName: SpawnWave
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1354,13 +1354,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed2ffb70a5a3f624f94bc12b24e76f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDatabase: {fileID: 1473352347}
-  enemyPrefabs:
+  strongEnemyPrefabs:
+  - {fileID: 8972197922035234405, guid: bb6b632338bfa6c42bfce811ef884c32, type: 3}
   - {fileID: 7912951744429568011, guid: a420ed4f3adf93f499aeed4a38898377, type: 3}
+  strongEnemyPoints: 0300000003000000
+  mediumEnemyPrefabs:
+  - {fileID: 3714884017509786693, guid: afce0cfd98bebed4ab2d9a943cf306b7, type: 3}
   - {fileID: 2292620610740664808, guid: 7f049c699a9e75044b419194b10e239f, type: 3}
+  mediumEnemyPoints: 0200000002000000
+  weakEnemyPrefabs:
   - {fileID: 1275695925524037716, guid: c3eb37ed64dbbcd429e07ff1e891222a, type: 3}
-  enemySpawnCount: 3
+  - {fileID: 7751260395388197868, guid: 6e31ebafb98ad134cbba431641cba99c, type: 3}
+  weakEnemyPoints: 0100000001000000
+  enemySpawnCount: 1
   spawnerNum: 0
+  enemyDatabase: {fileID: 1473352347}
 --- !u!1 &1945420513
 GameObject:
   m_ObjectHideFlags: 0
