@@ -36,6 +36,10 @@ public class TowerBuilder : MonoBehaviour
 
     public List<TowerSystem> towers = new List<TowerSystem>();
     public List<GameObject> CreatedTowers { get; private set; }
+    public List<GameObject> ActiveTowers()
+    {
+        return CreatedTowers.FindAll(p => p.activeInHierarchy);
+    }
     public TowerSystem currentTower { get; private set; }
 
     public List<AudioClip> TowerDestructionAudio = new List<AudioClip>();
