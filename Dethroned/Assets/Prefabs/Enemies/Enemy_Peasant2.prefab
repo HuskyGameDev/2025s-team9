@@ -265,4 +265,5 @@ MonoBehaviour:
   enemyMaxHealth: 10
   enemyCurrentHealth: 0
   enemySpeed: 4
+  enemySpeedVariability: 0.5
   enemyDamage: 4
