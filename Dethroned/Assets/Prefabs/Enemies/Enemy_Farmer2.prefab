@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c65bc7ed10abb840a594b4e8155604a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetType: 0
+  targetType: 2
 --- !u!58 &5111554156229490817
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -264,5 +264,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyMaxHealth: 10
   enemyCurrentHealth: 0
-  enemySpeed: 2
+  enemySpeed: 1.5
   enemyDamage: 2

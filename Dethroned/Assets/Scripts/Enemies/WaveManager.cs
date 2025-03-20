@@ -193,10 +193,5 @@ public class WaveManager : MonoBehaviour
                 }
             }
         }
-
-        Debug.Log(points);
-        Debug.Log(weakPoints);
-        Debug.Log(mediumPoints);
-        Debug.Log(strongPoints);
     }
 }

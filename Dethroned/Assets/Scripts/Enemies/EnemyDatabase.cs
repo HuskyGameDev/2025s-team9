@@ -55,10 +55,7 @@ public class EnemyDatabase : MonoBehaviour
         //update various target listings
         for (int i = 0; i < spawners.Length; i++)
         {
-            //TODO: do the math to do these correctly, for now just gonna find a thing tagged with target
-            nearestStrong[i] = GameObject.FindGameObjectWithTag("Target");
-            nearestWeak[i] = GameObject.FindGameObjectWithTag("Target");
-            nearestTarget[i] = GameObject.FindGameObjectWithTag("Target");
+            categorizeTowers(i);
         }
     }
 
@@ -92,5 +89,57 @@ public class EnemyDatabase : MonoBehaviour
             //set spawn info - spawn location, enemy database (this script)
             newSpawn.GetComponent<EnemyTargetFinder>().setSpawnInfo(spawnerNum, this.GetComponent<EnemyDatabase>());
         }
+    }
+
+    //finds the different target types for a given spawner
+    private void categorizeTowers(int spawnerNum)
+    {
+        //get all tower objects by tag
+        GameObject[] towers = GameObject.FindGameObjectsWithTag("Target");
+
+        int strongIndex = 0;
+        float strongValue = towers[0].GetComponent<Tower>().MaxHealth;
+
+        int weakIndex = 0;
+        float weakValue = towers[0].GetComponent<Tower>().MaxHealth;
+        
+        int closeIndex = 0;
+        float closeValue = 10000000000;
+
+        //iterate through each and store index and value associated with each
+        for (int i = 0; i < towers.Length; i++)
+        {
+            float analyzedValue = 0;
+
+            //find the strongest tower
+            if ((analyzedValue = towers[i].GetComponent<Tower>().MaxHealth) > strongValue)
+            {
+                strongIndex = i;
+                strongValue = analyzedValue;
+
+                Debug.Log("found stronger tower");
+            }
+
+            //find the weakest tower
+            if ((analyzedValue = towers[i].GetComponent<Tower>().MaxHealth) < weakValue)
+            {
+                weakIndex = i;
+                weakValue = analyzedValue;
+
+                Debug.Log("found weaker tower");
+            }
+
+            //find the closest tower
+            analyzedValue = (spawners[i].transform.position - towers[i].gameObject.transform.position).magnitude;
+            if (analyzedValue < closeValue)
+            {
+                closeIndex = i;
+                closeValue = analyzedValue;
+            }
+        }
+
+        nearestStrong[spawnerNum] = towers[strongIndex];
+        nearestWeak[spawnerNum] = towers[weakIndex];
+        nearestTarget[spawnerNum] = towers[closeIndex];
     }
 }
