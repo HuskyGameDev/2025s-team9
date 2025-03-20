@@ -46,7 +46,7 @@ public class WaveManager : MonoBehaviour
         //int points, float maxPercentStrong, float minPercentStrong, float maxPercentMedium, float minPercentMedium
 
         //setting these here temporarily so I can test if this works with button press (without setting up UI)
-        int points = 100;
+        int points = 20;
         float maxPercentStrong = .2f;
         float minPercentStrong = .1f;
         float maxPercentMedium = .3f;

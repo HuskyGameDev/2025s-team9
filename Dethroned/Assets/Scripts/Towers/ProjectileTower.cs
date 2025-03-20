@@ -103,7 +103,7 @@ public class ProjectileTower : Tower
             return;
         }
 
-        Debug.Log($"_damageEnemy() Damaged {_target.name} for {TowerDamage}");
+        _target.GetComponent<EnemyStats>().DamageEnemy(TowerDamage);
 
         return;
     }
