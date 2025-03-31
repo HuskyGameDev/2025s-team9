@@ -24,6 +24,9 @@ public class EnemyStats : MonoBehaviour
     private bool touchingTower = false;
     private Tower touchedTower = null;
 
+    private int wavePoints = 0;
+    private int soulPoints = 0;
+
     //This gets the ai's pathfinding script, we'll use it to set speed
     private AIPath aiPath = null;
 
@@ -75,12 +78,19 @@ public class EnemyStats : MonoBehaviour
     {
         //TODO: play death sound
 
-        gameController.EnemyDeath(1, 1);
+        gameController.EnemyDeath(soulPoints, wavePoints);
     }
 
     //deal damage to the enemy this is called on
     public void DamageEnemy(float damage)
     {
         enemyCurrentHealth -= damage;
+    }
+
+    //set info for returning wave/soul points (call this on enemy instatiation)
+    public void SetSpawnInfo(int wavePoints, int soulPoints)
+    {
+        this.wavePoints = wavePoints;
+        this.soulPoints = soulPoints;
     }
 }

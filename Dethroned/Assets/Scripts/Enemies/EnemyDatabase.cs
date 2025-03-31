@@ -79,7 +79,7 @@ public class EnemyDatabase : MonoBehaviour
     }
 
     //Spawn "count" amount of the given enemy type at the given spawner (TODO: maybe change them to have strings for names?)
-    public void spawnEnemies(GameObject enemyPrefab, int count, int spawnerNum)
+    public void spawnEnemies(GameObject enemyPrefab, int count, int spawnerNum, int wavePoints, int soulPoints)
     {
         for (int i = 0; i < count; i++)
         {
@@ -88,62 +88,62 @@ public class EnemyDatabase : MonoBehaviour
 
             //set spawn info - spawn location, enemy database (this script)
             newSpawn.GetComponent<EnemyTargetFinder>().setSpawnInfo(spawnerNum, this.GetComponent<EnemyDatabase>());
+            newSpawn.GetComponent<EnemyStats>().SetSpawnInfo(wavePoints, soulPoints);
         }
     }
 
     //finds the different target types for a given spawner
     private void categorizeTowers(int spawnerNum)
     {
-        //get all tower objects by tag
-        GameObject[] towers = GameObject.FindGameObjectsWithTag("Target");
-
-        if (towers.Length <= 0)
-            Debug.LogError("Nothing was tagged as a tower");
+        //TODO: probably can fix this by assigning the castle as tower 0
+        if (TowerBuilder.Instance.ActiveTowers().Count <= 0)
+            Debug.LogError("No towers in the scene");
 
 
-        int strongIndex = 0;
-        float strongValue = towers[0].GetComponent<Tower>().MaxHealth;
+        GameObject strongTower = null;
+        float strongValue = -1;
 
-        int weakIndex = 0;
-        float weakValue = towers[0].GetComponent<Tower>().MaxHealth;
+        GameObject weakTower = null;
+        float weakValue = 1000000000000;
         
-        int closeIndex = 0;
+        GameObject closeTower = null;
         float closeValue = 10000000000;
 
         //iterate through each and store index and value associated with each
-        for (int i = 0; i < towers.Length; i++)
+        for (int i = 0; i < spawners.Length; i++)
         {
             float analyzedValue = 0;
 
-            //find the strongest tower
-            if ((analyzedValue = towers[i].GetComponent<Tower>().MaxHealth) > strongValue)
+            //look at every tower relative to every spawn point
+            foreach (GameObject tower in TowerBuilder.Instance.ActiveTowers())
             {
-                strongIndex = i;
-                strongValue = analyzedValue;
 
-                Debug.Log("found stronger tower");
-            }
+                //find the strongest tower
+                if ((analyzedValue = tower.GetComponent<Tower>().MaxHealth) > strongValue)
+                {
+                    strongTower = tower;
+                    strongValue = analyzedValue;
+                }
 
-            //find the weakest tower
-            if ((analyzedValue = towers[i].GetComponent<Tower>().MaxHealth) < weakValue)
-            {
-                weakIndex = i;
-                weakValue = analyzedValue;
+                //find the weakest tower
+                if ((analyzedValue = tower.GetComponent<Tower>().MaxHealth) < weakValue)
+                {
+                    weakTower = tower;
+                    weakValue = analyzedValue;
+                }
 
-                Debug.Log("found weaker tower");
-            }
-
-            //find the closest tower
-            analyzedValue = (spawners[i].transform.position - towers[i].gameObject.transform.position).magnitude;
-            if (analyzedValue < closeValue)
-            {
-                closeIndex = i;
-                closeValue = analyzedValue;
+                //find the closest tower
+                analyzedValue = (spawners[i].transform.position - tower.gameObject.transform.position).magnitude;
+                if (analyzedValue < closeValue)
+                {
+                    closeTower = tower;
+                    closeValue = analyzedValue;
+                }
             }
         }
 
-        nearestStrong[spawnerNum] = towers[strongIndex];
-        nearestWeak[spawnerNum] = towers[weakIndex];
-        nearestTarget[spawnerNum] = towers[closeIndex];
+        nearestStrong[spawnerNum] = strongTower;
+        nearestWeak[spawnerNum] = weakTower;
+        nearestTarget[spawnerNum] = closeTower;
     }
 }
