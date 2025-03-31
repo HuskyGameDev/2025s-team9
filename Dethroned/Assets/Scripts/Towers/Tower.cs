@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,10 @@ public abstract class Tower : MonoBehaviour
         if(_health <= 0)
         {
             gameObject.SetActive(false);
+
+            //Update enemy database for targeting (Thomas was here)
+            EnemyDatabase enemyDatabase = GameObject.FindGameObjectWithTag("Managers").GetComponent<EnemyDatabase>();
+            enemyDatabase.updateTargetDatabase(gameObject, false); //going for remove = false because of how towers are being enabled/disabled instead of instatiated/destroyed here
         }
     }
     /// <summary>

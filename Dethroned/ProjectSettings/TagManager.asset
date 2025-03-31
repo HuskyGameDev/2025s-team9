@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Target
+  - Managers
+  - A*
   layers:
   - Default
   - TransparentFX
