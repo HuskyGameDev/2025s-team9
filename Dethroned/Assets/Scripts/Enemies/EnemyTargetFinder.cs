@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class EnemyTargetFinder : MonoBehaviour
 {
-    public enum TargetType { CLOSEST, STRONG, WEAK };
+    public enum TargetType { CLOSEST, STRONG, WEAK, CASTLE};
 
     //how this enemy will prioritize targets
     [SerializeField] TargetType targetType = TargetType.CLOSEST;

@@ -28,7 +28,13 @@ public class EnemyDatabase : MonoBehaviour
     private GameObject[] nearestStrong;
     private GameObject[] nearestWeak;
     private GameObject[] nearestTarget;
-    
+    private GameObject castle;
+
+    private void Start()
+    {
+        castle = GameObject.FindGameObjectWithTag("Player");
+    }
+
     //This updates the listings of spawners and their corresponding target arrays WARNING: this must be called before updateTargetDatabase
     //If you're not adding a spawn location just pass null (do this to instantiate the target arrays if you're just setting spawner locations through the editor)
     public void updateSpawnerListings(GameObject spawnLocation)
@@ -36,7 +42,7 @@ public class EnemyDatabase : MonoBehaviour
         //add a new spawn location
         if(spawnLocation != null)
         {
-            //TODO: do stuff here
+            //TODO: do stuff here (or just remove this honestly)
         }
 
         nearestStrong = new GameObject[spawners.Length];
@@ -72,6 +78,9 @@ public class EnemyDatabase : MonoBehaviour
 
             case EnemyTargetFinder.TargetType.WEAK:
                 return nearestWeak[spawnLocation].transform;
+
+            case EnemyTargetFinder.TargetType.CASTLE:
+                return castle.transform;
         }
 
         //something went wrong
@@ -95,18 +104,13 @@ public class EnemyDatabase : MonoBehaviour
     //finds the different target types for a given spawner
     private void categorizeTowers(int spawnerNum)
     {
-        //TODO: probably can fix this by assigning the castle as tower 0
-        if (TowerBuilder.Instance.ActiveTowers().Count <= 0)
-            Debug.LogError("No towers in the scene");
-
-
-        GameObject strongTower = null;
+        GameObject strongTower = castle;
         float strongValue = -1;
 
-        GameObject weakTower = null;
+        GameObject weakTower = castle;
         float weakValue = 1000000000000;
         
-        GameObject closeTower = null;
+        GameObject closeTower = castle;
         float closeValue = 10000000000;
 
         //iterate through each and store index and value associated with each
