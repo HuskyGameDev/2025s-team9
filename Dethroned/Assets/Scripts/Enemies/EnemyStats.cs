@@ -52,7 +52,7 @@ public class EnemyStats : MonoBehaviour
             touchedTower.DamageHealth(enemyDamage * Time.fixedDeltaTime);
         }
 
-        //attack castle TODO
+        //attack castle
         if (touchingCastle && touchedCastle != null)
         {
             touchedCastle.TakeDamage(enemyDamage * Time.fixedDeltaTime);

@@ -111,38 +111,34 @@ public class EnemyDatabase : MonoBehaviour
         float weakValue = 1000000000000;
         
         GameObject closeTower = castle;
-        float closeValue = 10000000000;
+        float closeValue = (spawners[spawnerNum].transform.position - castle.transform.position).magnitude;
 
         //iterate through each and store index and value associated with each
-        for (int i = 0; i < spawners.Length; i++)
+        float analyzedValue = 0;
+
+        foreach (GameObject tower in TowerBuilder.Instance.ActiveTowers())
         {
-            float analyzedValue = 0;
 
-            //look at every tower relative to every spawn point
-            foreach (GameObject tower in TowerBuilder.Instance.ActiveTowers())
+            //find the strongest tower
+            if ((analyzedValue = tower.GetComponent<Tower>().MaxHealth) > strongValue)
             {
+                strongTower = tower;
+                strongValue = analyzedValue;
+            }
 
-                //find the strongest tower
-                if ((analyzedValue = tower.GetComponent<Tower>().MaxHealth) > strongValue)
-                {
-                    strongTower = tower;
-                    strongValue = analyzedValue;
-                }
+            //find the weakest tower
+            if ((analyzedValue = tower.GetComponent<Tower>().MaxHealth) < weakValue)
+            {
+                weakTower = tower;
+                weakValue = analyzedValue;
+            }
 
-                //find the weakest tower
-                if ((analyzedValue = tower.GetComponent<Tower>().MaxHealth) < weakValue)
-                {
-                    weakTower = tower;
-                    weakValue = analyzedValue;
-                }
-
-                //find the closest tower
-                analyzedValue = (spawners[i].transform.position - tower.gameObject.transform.position).magnitude;
-                if (analyzedValue < closeValue)
-                {
-                    closeTower = tower;
-                    closeValue = analyzedValue;
-                }
+            //find the closest tower
+            analyzedValue = (spawners[spawnerNum].transform.position - tower.gameObject.transform.position).magnitude;
+            if (analyzedValue < closeValue)
+            {
+                closeTower = tower;
+                closeValue = analyzedValue;
             }
         }
 
