@@ -24,6 +24,9 @@ public class EnemyStats : MonoBehaviour
     private bool touchingTower = false;
     private Tower touchedTower = null;
 
+    private bool touchingCastle = false;
+    private Castle touchedCastle = null;
+
     private int wavePoints = 0;
     private int soulPoints = 0;
 
@@ -43,13 +46,20 @@ public class EnemyStats : MonoBehaviour
     //doing things here to keep updates consistant (not tied to fps) this should run around 50 times per second
     private void FixedUpdate()
     {
+        //attack towers
         if (touchingTower && touchedTower != null)
         {
             touchedTower.DamageHealth(enemyDamage * Time.fixedDeltaTime);
         }
 
+        //attack castle TODO
+        if (touchingCastle && touchedCastle != null)
+        {
+            touchedCastle.TakeDamage(enemyDamage * Time.fixedDeltaTime);
+        }
+
         //When the enemies run out of health destroy them
-        if(enemyCurrentHealth <= 0)
+        if (enemyCurrentHealth <= 0)
             Destroy(gameObject);
     }
 
@@ -61,6 +71,13 @@ public class EnemyStats : MonoBehaviour
             touchingTower = true;
             touchedTower = collision.collider.gameObject.GetComponent<Tower>();
         }
+
+        //mark that the enemy is touching the castle
+        if (collision.collider.gameObject.CompareTag("Player"))
+        {
+            touchingCastle = true;
+            touchedCastle = collision.collider.gameObject.GetComponent<Castle>();
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -70,6 +87,13 @@ public class EnemyStats : MonoBehaviour
         {
             touchingTower = false;
             touchedTower = null;
+        }
+
+        //mark that the enemy is no longer touching the castle
+        if (collision.collider.gameObject.CompareTag("Player"))
+        {
+            touchingCastle = false;
+            touchedCastle = null;
         }
     }
 

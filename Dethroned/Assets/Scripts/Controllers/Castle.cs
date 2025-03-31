@@ -5,7 +5,7 @@ using UnityEngine;
 public class Castle : MonoBehaviour
 {
     public int maxHealth = 20;
-    public int currentHealth;
+    public float currentHealth;
 
     public HealthBar healthBar;
 
@@ -19,10 +19,19 @@ public class Castle : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) {
             TakeDamage(1);
         }
+
+        //TODO: gameover when castle dies (for now just going to print a debug and destroy the castle object)
+        if(currentHealth <= 0)
+        {
+            Debug.Log("Castle is destroyed, game over");
+
+            Destroy(gameObject);
+        }
     }
 
-    void TakeDamage(int damage) {
+    public void TakeDamage(float damage) {
         currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
+        healthBar.SetHealth((int) currentHealth);
     }
+
 }
