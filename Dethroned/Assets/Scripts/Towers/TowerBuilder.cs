@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class TowerBuilder : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class TowerBuilder : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        currentTowerUpdated = new UnityEvent<TowerSystem>();
     }
 
     [System.Serializable]
@@ -25,13 +27,13 @@ public class TowerBuilder : MonoBehaviour
     {
         [Header("Tower Information")]
         public string name;
-
-        [Header("Tower Models")]
         [Tooltip("What key does the user press to be able to place this tower.")]
         public KeyCode Keybind;
+        public Sprite sprite;
+
+        [Header("Tower Models")]
         [Tooltip("What tower does the player spawn")]
         public GameObject Prefab;
-        public Sprite sprite;
     }
 
     public List<TowerSystem> towers = new List<TowerSystem>();
@@ -41,25 +43,32 @@ public class TowerBuilder : MonoBehaviour
         return CreatedTowers.FindAll(p => p.activeInHierarchy);
     }
     public TowerSystem currentTower { get; private set; }
+    [HideInInspector]public UnityEvent<TowerSystem> currentTowerUpdated;
+
+    public void updateCurrentTower(TowerSystem tower)
+    {
+        currentTower = tower;
+        currentTowerUpdated?.Invoke(tower);
+    }
 
     public List<AudioClip> TowerDestructionAudio = new List<AudioClip>();
     public List<AudioClip> TowerConstructionAudio = new List<AudioClip>();
 
+
     private void Start()
     {
         if (towers.Count > 0)
-            currentTower = towers[0];
+            updateCurrentTower(towers[0]);
         if (CreatedTowers == null) CreatedTowers = new List<GameObject>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         foreach (TowerSystem tower in towers)
         {
             if (Input.GetKeyUp(tower.Keybind))
             {
-                currentTower = tower;
+                updateCurrentTower(tower);
             }
         }
 
