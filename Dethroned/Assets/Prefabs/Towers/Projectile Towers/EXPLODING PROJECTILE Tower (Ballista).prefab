@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 626b699d23e0d60448af53bdbe8dbf73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CostOfTower: 100
-  MaxHealth: 100
+  CostOfTower: 200
+  MaxHealth: 150
   radius: 5
   EnemyLayer:
     serializedVersion: 2

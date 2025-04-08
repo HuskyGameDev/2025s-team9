@@ -80,8 +80,15 @@ MonoBehaviour:
   currentTowerUpdated:
     m_PersistentCalls:
       m_Calls: []
-  TowerDestructionAudio: []
-  TowerConstructionAudio: []
+  TowerDestructionAudio:
+  - {fileID: 8300000, guid: 6251acc3a6794b7428107b79ef8b03ef, type: 3}
+  - {fileID: 8300000, guid: 3e153c9f264d0584388318334103425e, type: 3}
+  - {fileID: 8300000, guid: 0c3e77f6739b8334586e39381ff061b4, type: 3}
+  TowerConstructionAudio:
+  - {fileID: 8300000, guid: 04d405584e6f8a142b711554d0f4461b, type: 3}
+  - {fileID: 8300000, guid: 76586ffed35a38f41aea08ec3fb352f8, type: 3}
+  - {fileID: 8300000, guid: 97dbc4315f0850548bbb5aaba3d2696e, type: 3}
+  - {fileID: 8300000, guid: 414cb1fbc15b36747bae0192e1632e4e, type: 3}
 --- !u!114 &8593057326738660814
 MonoBehaviour:
   m_ObjectHideFlags: 0

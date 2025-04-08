@@ -216,13 +216,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c797cb6eb2ed5846b2617a5a57f2c23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  offset: {x: 0, y: 0}
-  bounds: {x: 0.5, y: 0.1}
-  EnemyLayer:
-    serializedVersion: 2
-    m_Bits: 2147483648
-  _clip: {fileID: 0}
+  offset: {x: 0.09, y: 0}
+  bounds: {x: 0.75, y: 0.22}
+  _penetration: 0
+  enemyHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!50 &1830913282550587887
 Rigidbody2D:
   serializedVersion: 4

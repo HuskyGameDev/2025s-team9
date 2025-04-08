@@ -10,7 +10,7 @@ public class EnemyStats : MonoBehaviour
     GameController gameController = null;
 
     //various enemy stats, set these in the editor
-    [SerializeField] float enemyMaxHealth = 0;
+    public float enemyMaxHealth = 0;
     [SerializeField] private float enemyCurrentHealth = 0; //Serialized so we can check enemy health in the editor
 
     //the "default" enemy speed

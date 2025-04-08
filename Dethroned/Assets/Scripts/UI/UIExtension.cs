@@ -14,16 +14,16 @@ public class UIExtension : MonoBehaviour
         if (closed)
         {
             if (openLeft)
-                obj.transform.position += new Vector3(-width, 0, 0);
+                objR.anchoredPosition += new Vector2(-width, 0);
             else
-                obj.transform.position += new Vector3(width, 0, 0);
+                objR.anchoredPosition += new Vector2(width, 0);
         }
         else
         {
             if(openLeft)
-                obj.transform.position += new Vector3(width, 0, 0);
+                objR.anchoredPosition += new Vector2(width, 0);
             else
-                obj.transform.position += new Vector3(-width, 0, 0);
+                objR.anchoredPosition += new Vector2(-width, 0);
         }
     }
 }

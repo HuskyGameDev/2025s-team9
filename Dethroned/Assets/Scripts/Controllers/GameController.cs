@@ -153,9 +153,10 @@ public class GameController : MonoBehaviour
 
     public void GameOver() {
         gameObject.SetActive(false);
+        //Time.timeScale = 0;
     }
 
     public void WinGame() {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 }

@@ -216,8 +216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c797cb6eb2ed5846b2617a5a57f2c23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 0}
-  bounds: {x: 0.5, y: 0.1}
+  offset: {x: 0.06, y: 0}
+  bounds: {x: 0.75, y: 0.13}
   _penetration: 0
   enemyHit:
     m_PersistentCalls:

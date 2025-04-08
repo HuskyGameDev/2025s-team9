@@ -51,6 +51,12 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
+        if (!__target)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
         if (__target && !_penetration) // if its not a penetrating projectile then track the target.
         {
             var dir = (__target.transform.position - transform.position).normalized;
@@ -68,21 +74,23 @@ public class Projectile : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
+        
     }
 
-    Collider2D prevCollision = null; // if we are a penetrating projectile then we need to keep track of previous collisions so we don't accidentally do more damage than intended to enemies.
+    List<Collider2D> prevCollisions = new List<Collider2D>(); // if we are a penetrating projectile then we need to keep track of previous collisions so we don't accidentally do more damage than intended to enemies.
     private void FixedUpdate()
     {
-        var collision = Physics2D.OverlapBox(transform.position + (Vector3)offset, bounds, Vector2.Angle(Vector2.zero, __target.transform.position), __enemyLayer);
-        if (collision)
+        var collision = Physics2D.OverlapBoxAll(transform.position + (Vector3)offset, bounds, Vector2.Angle(Vector2.zero, __target.transform.position), __enemyLayer);
+        foreach(var collider in collision)
         {
-            if (collision.gameObject.Equals(__target)) // hit target
+            if (collider.gameObject.Equals(__target)) // hit target
             {
                 enemyHit.Invoke(this, __target);
+                prevCollisions = new List<Collider2D>();
                 gameObject.SetActive(false);
             }
-            else if (!collision.Equals(prevCollision) && _penetration) enemyHit.Invoke(this, collision.gameObject); // we hit an enemy just not THE target and we are a penetrating projectile.
-            prevCollision = collision;
+            else if (!prevCollisions.Contains(collider) && _penetration) enemyHit.Invoke(this, collider.gameObject); // we hit an enemy just not THE target and we are a penetrating projectile.
+            prevCollisions.Add(collider);
         }
             
     }

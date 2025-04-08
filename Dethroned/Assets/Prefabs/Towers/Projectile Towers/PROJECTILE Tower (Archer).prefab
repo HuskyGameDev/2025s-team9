@@ -47,12 +47,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CostOfTower: 50
-  MaxHealth: 100
+  MaxHealth: 75
   radius: 5
   EnemyLayer:
     serializedVersion: 2
     m_Bits: 2147483648
-  targetPrio: 1
+  targetPrio: 2
   ProjectilePrefab: {fileID: 6848864125745578395, guid: 9c3a3d7a21de9294a8d018dfaedb0aaa, type: 3}
   TowerProjectileSounds:
   - {fileID: 8300000, guid: bb9d419527c9d984a93a9a689363d39c, type: 3}

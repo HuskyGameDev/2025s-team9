@@ -9,18 +9,21 @@ EditorBuildSettings:
     path: Assets/Scenes/Root.unity
     guid: 6d341c0145bc89049a6bad1a85be8c67
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Pause.unity
+    guid: 9d3c4ee6a40a2534fb95c27671c04661
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: c9edd7dc062d7ab4bb0409d22ee4ff35
   - enabled: 1
-    path: Assets/Scenes/Pause.unity
-    guid: 9d3c4ee6a40a2534fb95c27671c04661
-  - enabled: 1
+    path: Assets/Scenes/Playtesting.unity
+    guid: be6e393534ff7f94683d5b6020a5ab72
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 0
     path: Assets/Scenes/Rounds.unity
     guid: 0222f27e048f3a945a276a5541f70151
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Towers.unity
     guid: 2836ec451c92b11489fba5efb12db455
   m_configObjects: {}

@@ -50,12 +50,31 @@ public class ProjectileTower : Tower
                     return closesetToCastle;
 
                 case TargetingPriority.WEAK:
-                    Debug.LogWarning($"Update detectEnemies() to target Weak enemy types (DEFAULTING TO CLOSE)");
-                    return _detectedEnemies[0].gameObject;
+                    
+                    GameObject weakest = _detectedEnemies[0].gameObject;
+                    foreach (Collider2D e in _detectedEnemies)
+                    {
+                        if (e.TryGetComponent<EnemyStats>(out var stat))
+                        {
+                            e.TryGetComponent<EnemyStats>(out var tstat);
+                            if (stat.enemyMaxHealth < tstat.enemyMaxHealth)
+                                weakest = stat.gameObject;
+                        }
+                    }
+                    return weakest;
 
                 case TargetingPriority.STRONG:
-                    Debug.LogWarning($"Update detectEnemies() to target Strong enemy types (DEFAULTING TO CLOSE)");
-                    return _detectedEnemies[0].gameObject;
+                    GameObject strong = _detectedEnemies[0].gameObject;
+                    foreach (Collider2D e in _detectedEnemies)
+                    {
+                        if (e.TryGetComponent<EnemyStats>(out var stat))
+                        {
+                            e.TryGetComponent<EnemyStats>(out var tstat);
+                            if (stat.enemyMaxHealth < tstat.enemyMaxHealth)
+                                strong = stat.gameObject;
+                        }
+                    }
+                    return strong;
             }
         return null;
     }
@@ -117,7 +136,7 @@ public class ProjectileTower : Tower
     /// <param name="Enemy">target that is going to be damaged.</param>
     protected virtual void __damageActual(GameObject Enemy)
     {
-        Enemy.GetComponent<EnemyStats>()?.DamageEnemy(TowerDamage);
+        if(Enemy) Enemy.GetComponent<EnemyStats>()?.DamageEnemy(TowerDamage);
     }
 
     private IEnumerator __attackEvent()
