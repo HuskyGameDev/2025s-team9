@@ -8,7 +8,7 @@ public class Castle : MonoBehaviour
     public float currentHealth;
 
     public HealthBar healthBar;
-
+    public GameController gameController;
     
     void Awake() {
         currentHealth = maxHealth;
@@ -24,7 +24,7 @@ public class Castle : MonoBehaviour
         if(currentHealth <= 0)
         {
             Debug.Log("Castle is destroyed, game over");
-
+            gameController.GameOver();
             Destroy(gameObject);
         }
     }

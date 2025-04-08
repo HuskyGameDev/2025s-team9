@@ -722,6 +722,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 5427886916049866504, guid: f73a7877a5fe9094e8530ce9e19096c3, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5427886916049866504, guid: f73a7877a5fe9094e8530ce9e19096c3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5427886916049866504, guid: f73a7877a5fe9094e8530ce9e19096c3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8730757609101897146, guid: f73a7877a5fe9094e8530ce9e19096c3, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2910,6 +2922,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 744521748}
+    - target: {fileID: 7174282875703905483, guid: e136066b5c64d1c4baa7cb6a82543063, type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 1922145134}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

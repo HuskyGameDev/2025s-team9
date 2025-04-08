@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -152,11 +153,13 @@ public class GameController : MonoBehaviour
     }
 
     public void GameOver() {
+        SceneManager.LoadScene("LossScreen");
         gameObject.SetActive(false);
         //Time.timeScale = 0;
     }
 
     public void WinGame() {
+        SceneManager.LoadScene("WinScreen");
         //gameObject.SetActive(false);
     }
 }
