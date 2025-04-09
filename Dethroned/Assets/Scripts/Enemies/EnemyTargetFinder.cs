@@ -33,7 +33,7 @@ public class EnemyTargetFinder : MonoBehaviour
         destSetter = this.GetComponent<AIDestinationSetter>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         //give the enemy the latest target (TODO: might want to put this in something that runs slightly less frequently for performance reasons)
         destSetter.target = enemyDatabase.getNewTarget(targetType, spawnLocation);

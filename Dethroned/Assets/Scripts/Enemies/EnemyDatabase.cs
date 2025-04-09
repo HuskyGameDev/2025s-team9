@@ -58,6 +58,8 @@ public class EnemyDatabase : MonoBehaviour
         if(remove && updatedTarget != null)
             Destroy(updatedTarget);
 
+        Debug.Log("updating targets");
+
         //update various target listings
         for (int i = 0; i < spawners.Length; i++)
         {
@@ -84,7 +86,7 @@ public class EnemyDatabase : MonoBehaviour
         }
 
         //something went wrong
-        return null;
+        return castle.transform;
     }
 
     //Spawn "count" amount of the given enemy type at the given spawner (TODO: maybe change them to have strings for names?)
@@ -118,27 +120,31 @@ public class EnemyDatabase : MonoBehaviour
 
         foreach (GameObject tower in TowerBuilder.Instance.ActiveTowers())
         {
+            Debug.Log(tower.name);
 
-            //find the strongest tower
-            if ((analyzedValue = tower.GetComponent<Tower>().MaxHealth) > strongValue)
+            if (tower.activeSelf == true)
             {
-                strongTower = tower;
-                strongValue = analyzedValue;
-            }
+                //find the strongest tower
+                if ((analyzedValue = tower.GetComponent<Tower>().MaxHealth) > strongValue)
+                {
+                    strongTower = tower;
+                    strongValue = analyzedValue;
+                }
 
-            //find the weakest tower
-            if ((analyzedValue = tower.GetComponent<Tower>().MaxHealth) < weakValue)
-            {
-                weakTower = tower;
-                weakValue = analyzedValue;
-            }
+                //find the weakest tower
+                if ((analyzedValue = tower.GetComponent<Tower>().MaxHealth) < weakValue)
+                {
+                    weakTower = tower;
+                    weakValue = analyzedValue;
+                }
 
-            //find the closest tower
-            analyzedValue = (spawners[spawnerNum].transform.position - tower.gameObject.transform.position).magnitude;
-            if (analyzedValue < closeValue)
-            {
-                closeTower = tower;
-                closeValue = analyzedValue;
+                //find the closest tower
+                analyzedValue = (spawners[spawnerNum].transform.position - tower.gameObject.transform.position).magnitude;
+                if (analyzedValue < closeValue)
+                {
+                    closeTower = tower;
+                    closeValue = analyzedValue;
+                }
             }
         }
 
