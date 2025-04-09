@@ -17,6 +17,10 @@ public class ProjectileTower : Tower
     public float TowerProjectileSpeed = 2;
     public bool penetration = false;
 
+    private void OnDisable()
+    {
+        _projectiles.Clear();
+    }
 
     protected GameObject _target;
     /// <summary>

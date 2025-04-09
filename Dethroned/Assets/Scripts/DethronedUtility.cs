@@ -12,7 +12,7 @@ public class DethronedUtility : MonoBehaviour
     /// <returns>a GameObject fetched from the pool (or created if there was nothing to fetch)</returns>
     public static GameObject FetchPooledGameObject(List<GameObject> pool, GameObject prefab)
     {
-        GameObject obj = pool.Find(p => !p.activeInHierarchy && p.name.Equals(prefab.name + "(Clone)"));
+        GameObject obj = pool.Find(p => !p.activeSelf && p.name.Equals(prefab.name + "(Clone)"));
         if (!obj) { obj = Instantiate(prefab); pool.Add(obj); }
         return obj;
     }
