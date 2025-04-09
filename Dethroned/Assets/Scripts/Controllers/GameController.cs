@@ -125,7 +125,7 @@ public class GameController : MonoBehaviour
         }
 
         //TODO: change this to a more fitting value
-        if (soulsCount >= 20) {
+        if (soulsCount >= 150) {
             WinGame();
         }
 
