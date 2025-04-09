@@ -25,6 +25,7 @@ public class Castle : MonoBehaviour
         {
             Debug.Log("Castle is destroyed, game over");
             gameController.GameOver();
+            //GameController.state = GameController.State.build;
             Destroy(gameObject);
         }
     }

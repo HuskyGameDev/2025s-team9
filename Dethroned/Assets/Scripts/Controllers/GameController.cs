@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     //Income related stuff
     private bool taxesRaised = false; //Keep track if taxes were raised or not (also for difficulty)
     private float income = 100; //Base income 
-    public static float currency;
+    public static float currency = 0;
 
     //Difficulty scale stuff
     private float diffMult = 1.25f; //Difficulty multiplier for taxes
@@ -35,9 +35,12 @@ public class GameController : MonoBehaviour
     private bool spawnEnemies = true;
 
     
-    void Start()
+    void Awake()
     {
         prevpoints = 10; //Set to base amount first
+        //Sorry i know this is weird but it fixes an important bug
+        currency = 0;
+        state = State.build;
         currency += income;
         UpdateHUD();
     }
