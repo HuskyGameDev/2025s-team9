@@ -15,7 +15,7 @@ public class TutorialController : MonoBehaviour
     public GameObject stowers;
     public GameObject target;
     public GameObject end;
-    public GameObject taxes;
+    public GameObject endButton;
     private int stage = 0;
     private string[] tutorialText = new string[13];
 
@@ -27,13 +27,13 @@ public class TutorialController : MonoBehaviour
         tutorialText[2] = "This is your current money, you need money to build towers";
         tutorialText[3] = "These are your souls, you get them by defeating enemies. Once you collect a sufficent amount, you will win the game.";
         tutorialText[4] = "Dethroned is split into 3 phases, the first lets you build towers.";
-        tutorialText[5] = "Click here to see what towers you can build";
-        tutorialText[6] = "Use this drop down menu to select this towers target priority";
-        tutorialText[7] = "Click anywhere to place the tower";
-        tutorialText[8] = "Click here to end the build phase";
-        tutorialText[9] = "Now you can choose to raise taxes, or keep the the same. If you raise taxes your village will get more angry and you will have a more difficult round";
+        tutorialText[5] = "You can click here to see what towers you can build";
+        tutorialText[6] = "You can use this drop down menu to select this towers target priority";
+        tutorialText[7] = "You can click anywhere to place the tower";
+        tutorialText[8] = "You can click here to end the build phase";
+        tutorialText[9] = "You can then choose to raise taxes, or keep them the same. If you raise taxes your village will get more angry and you will have a more difficult round";
         tutorialText[10] = "Please note, keeping taxes the same does not lessen your village's anger, so chose carefully!";
-        tutorialText[11] = "You will now go into a defend state where enemies will spawn, once all enmemies are dead the wave is over";
+        tutorialText[11] = "You will then go into a defend state where enemies will spawn, once all enmemies are dead the wave is over";
         tutorialText[12] = "Good Luck and enjoy Dethroned!";
     }
 
@@ -43,75 +43,49 @@ public class TutorialController : MonoBehaviour
         {
             case 0:
                 textbox.text = tutorialText[0];
-                next.SetActive(true);
-                text.SetActive(true);
                 break;
             case 1:
                 textbox.text = tutorialText[1];
                 hp.SetActive(true);
-                //next.SetActive(true);
-                //text.SetActive(true);
                 break;
             case 2:
                 textbox.text = tutorialText[2];
                 money.SetActive(true);
-                //next.SetActive(true);
-                //text.SetActive(true);
                 break;
             case 3:
                 textbox.text = tutorialText[3];
                 souls.SetActive(true);
-                //next.SetActive(true);
-                //text.SetActive(true);
                 break;
             case 4:
                 textbox.text = tutorialText[4];
-                //next.SetActive(true);
-                //text.SetActive(true);
                 break;
             case 5:
                 textbox.text = tutorialText[5];
                 stowers.SetActive(true);
-                //next.SetActive(true);
-                //text.SetActive(true);
                 break;
             case 6:
                 textbox.text = tutorialText[6];
                 target.SetActive(true);
-                //next.SetActive(true);
-                //text.SetActive(true);
                 break;
             case 7:
                 textbox.text = tutorialText[7];
-                //next.SetActive(true);
-                //text.SetActive(true);
                 break;
             case 8:
                 textbox.text = tutorialText[8];
                 end.SetActive(true);
-                //next.SetActive(true);
-                //text.SetActive(true);
+                endButton.SetActive(true);
                 break;
             case 9:
                 textbox.text = tutorialText[9];
-                taxes.SetActive(true);
-                //next.SetActive(true);
-                //text.SetActive(true);
                 break;
             case 10:
                 textbox.text = tutorialText[10];
-                //next.SetActive(true);
-                //text.SetActive(true);
                 break;
             case 11:
                 textbox.text = tutorialText[11];
-                //next.SetActive(true);
-                //text.SetActive(true);
                 break;
             case 12:
                 textbox.text = tutorialText[12];
-                //next.SetActive(true);
-                //text.SetActive(true);
                 break;
         }
     }
@@ -121,11 +95,9 @@ public class TutorialController : MonoBehaviour
         if (stage < 12)
         {
             stage++;
-            Debug.Log(stage);
         } else
         {
             SceneManager.LoadScene("Root");
-            Debug.Log(stage);
         }
     }
 
