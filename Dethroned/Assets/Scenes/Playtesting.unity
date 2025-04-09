@@ -3041,6 +3041,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4708025972699861185, guid: e136066b5c64d1c4baa7cb6a82543063, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7174282875703905483, guid: e136066b5c64d1c4baa7cb6a82543063, type: 3}
       propertyPath: healthBar
       value: 
