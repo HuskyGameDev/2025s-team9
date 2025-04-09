@@ -23,12 +23,11 @@ public abstract class Tower : MonoBehaviour
         // any special code can go after this point for example sounds, debug, particles, etc...
         if(_health <= 0)
         {
+            gameObject.SetActive(false);
+
             //Update enemy database for targeting (Thomas was here)
             EnemyDatabase enemyDatabase = GameObject.FindGameObjectWithTag("Managers").GetComponent<EnemyDatabase>();
             enemyDatabase.updateTargetDatabase(gameObject, false); //going for remove = false because of how towers are being enabled/disabled instead of instatiated/destroyed here
-
-            gameObject.SetActive(false);
-
         }
     }
     /// <summary>

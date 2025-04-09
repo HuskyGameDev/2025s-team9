@@ -120,9 +120,9 @@ public class EnemyDatabase : MonoBehaviour
 
         foreach (GameObject tower in TowerBuilder.Instance.ActiveTowers())
         {
-            Debug.Log(tower.name);
+            Debug.Log(tower.name + " --- " + tower.gameObject.activeSelf);
 
-            if (tower.activeSelf == true)
+            if (tower.gameObject.activeSelf == true)
             {
                 //find the strongest tower
                 if ((analyzedValue = tower.GetComponent<Tower>().MaxHealth) > strongValue)
