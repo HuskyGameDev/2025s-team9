@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
 
     //Income related stuff
     private bool taxesRaised = false; //Keep track if taxes were raised or not (also for difficulty)
+    private int raisedTimes = 0;
     private float income = 100; //Base income 
     public static float currency = 0;
 
@@ -31,6 +32,9 @@ public class GameController : MonoBehaviour
     //Winning
     int soulsCount = 0;
 
+    //Sounds
+    public List<AudioClip> money = new List<AudioClip>();
+
     //Thomas's Temp Stuff
     private bool spawnEnemies = true;
 
@@ -42,6 +46,7 @@ public class GameController : MonoBehaviour
         currency = 0;
         state = State.build;
         currency += income;
+        raisedTimes = 0;
         UpdateHUD();
     }
 
@@ -79,10 +84,12 @@ public class GameController : MonoBehaviour
     void Intermission() {
         canBuild = false;
         buttons.SetActive(true);
+
     }
 
     public void IncreaseTaxes() {
         taxesRaised = true;
+        raisedTimes++;
         points = calcEnemies();
         pointsKilled = 0;
         Debug.Log(points);
@@ -138,6 +145,7 @@ public class GameController : MonoBehaviour
             } else {
                 currency += income;
             }
+            AudioController.Instance.PlaySound(money[UnityEngine.Random.Range(0, money.Count)]);
             Debug.Log("Wave won");
         }
         if (Input.GetKeyDown(KeyCode.L)) {
