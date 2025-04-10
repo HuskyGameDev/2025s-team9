@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Provides the Basic functionality of the Towers of the game. allows for reusablility of code for expansive tower types.
@@ -15,10 +16,12 @@ public abstract class Tower : MonoBehaviour
     [Header("Tower Health")]
     public float MaxHealth = 100;
     protected float _health;
+    public Slider HealthBar;
     public void DamageHealth(float amt)
     {
         // Damage the tower
         _health = Mathf.Clamp(_health - amt, 0, MaxHealth);
+        HealthBar.value = _health/MaxHealth;
 
         // any special code can go after this point for example sounds, debug, particles, etc...
         if(_health <= 0)
@@ -38,6 +41,7 @@ public abstract class Tower : MonoBehaviour
     {
         // heal the tower.
         _health = Mathf.Clamp(_health + amt, 0, MaxHealth);
+        HealthBar.value = _health / MaxHealth;
 
         // any special code can go after this point for example sounds, debug, particles, etc...
         Debug.Log($"{gameObject.name} healed for {amt}.");
@@ -92,6 +96,7 @@ public abstract class Tower : MonoBehaviour
     protected virtual void Start()
     {
         _health = MaxHealth;
+        HealthBar.value = _health / MaxHealth;
         _castle = GameObject.FindGameObjectWithTag("Player");
         if (!_castle) Debug.LogError($"{name} couldn't find castle (looking for gameobject with tag \"Player\")");
         
@@ -104,6 +109,8 @@ public abstract class Tower : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        _health = MaxHealth;
+        HealthBar.value = _health / MaxHealth;
         startAllCoroutines();
     }
 

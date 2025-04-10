@@ -54,31 +54,29 @@ public class ProjectileTower : Tower
                     return closesetToCastle;
 
                 case TargetingPriority.WEAK:
-                    
-                    GameObject weakest = _detectedEnemies[0].gameObject;
+
+                    EnemyStats weakest = _detectedEnemies[0].GetComponent<EnemyStats>();
                     foreach (Collider2D e in _detectedEnemies)
                     {
                         if (e.TryGetComponent<EnemyStats>(out var stat))
                         {
-                            e.TryGetComponent<EnemyStats>(out var tstat);
-                            if (stat.enemyMaxHealth < tstat.enemyMaxHealth)
-                                weakest = stat.gameObject;
+                            if (stat.enemyMaxHealth < weakest.enemyMaxHealth)
+                                weakest = stat;
                         }
                     }
-                    return weakest;
+                    return weakest.gameObject;
 
                 case TargetingPriority.STRONG:
-                    GameObject strong = _detectedEnemies[0].gameObject;
+                    EnemyStats strong = _detectedEnemies[0].GetComponent<EnemyStats>();
                     foreach (Collider2D e in _detectedEnemies)
                     {
                         if (e.TryGetComponent<EnemyStats>(out var stat))
                         {
-                            e.TryGetComponent<EnemyStats>(out var tstat);
-                            if (stat.enemyMaxHealth < tstat.enemyMaxHealth)
-                                strong = stat.gameObject;
+                            if (stat.enemyDamage > strong.enemyDamage)
+                                strong = stat;
                         }
                     }
-                    return strong;
+                    return strong.gameObject;
             }
         return null;
     }

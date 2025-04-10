@@ -3,9 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static TowerBuilder;
+using UnityEngine.Events;
 
 public class TowerBuilderUI : MonoBehaviour
 {
+    public static TowerBuilderUI Instance;
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public GameObject content;
     public GameObject TowerContentPrefab;
     public Image currentTowerImage;
@@ -34,12 +49,6 @@ public class TowerBuilderUI : MonoBehaviour
     public void updateCurrentTowerSprite(TowerBuilder.TowerSystem sys)
     {
         currentTowerImage.sprite = sys.sprite;
-        targetPrio.value = ((int)sys.Prefab.GetComponent<Tower>().targetPrio);
         currentTowerText.text = sys.name;
-    }
-
-    public void updateTowerTargetType()
-    {
-        TowerBuilder.Instance.currentTower.Prefab.GetComponent<Tower>().targetPrio = (Tower.TargetingPriority)targetPrio.value;
     }
 }

@@ -51,18 +51,13 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        if (!__target)
-        {
-            gameObject.SetActive(false);
-            return;
-        }
 
         if (__target && !_penetration) // if its not a penetrating projectile then track the target.
         {
             var dir = (__target.transform.position - transform.position).normalized;
             transform.right = dir;
             transform.position+=(dir*__speed*Time.deltaTime);
-        }else if (__target) // if it is a penetrating projectile then shoot towards the first position you saw the target at.
+        }else if (_penetration) // if it is a penetrating projectile then shoot towards the first position you saw the target at.
         {
             var dir = (__targetStart - transform.position).normalized;
             transform.right = dir;
@@ -73,6 +68,10 @@ public class Projectile : MonoBehaviour
                 enemyHit.RemoveAllListeners();
                 gameObject.SetActive(false);
             }
+        }else
+        {
+            gameObject.SetActive(false);
+            return;
         }
         
     }
@@ -80,7 +79,7 @@ public class Projectile : MonoBehaviour
     List<Collider2D> prevCollisions = new List<Collider2D>(); // if we are a penetrating projectile then we need to keep track of previous collisions so we don't accidentally do more damage than intended to enemies.
     private void FixedUpdate()
     {
-        var collision = Physics2D.OverlapBoxAll(transform.position + (Vector3)offset, bounds, Vector2.Angle(Vector2.zero, __target.transform.position), __enemyLayer);
+        var collision = Physics2D.OverlapBoxAll(transform.position + (Vector3)offset, bounds, 0, __enemyLayer);
         foreach(var collider in collision)
         {
             if (collider.gameObject.Equals(__target)) // hit target

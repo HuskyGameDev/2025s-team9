@@ -19,7 +19,7 @@ public class EnemyStats : MonoBehaviour
     //wil generate a random number from the negative to positve value of this number and add it to the "default" speed
     [SerializeField] float enemySpeedVariability = 0;
 
-    [SerializeField] float enemyDamage = 0;
+    public float enemyDamage = 0;
 
     private bool touchingTower = false;
     private Tower touchedTower = null;

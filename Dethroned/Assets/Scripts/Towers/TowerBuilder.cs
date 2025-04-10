@@ -97,6 +97,7 @@ public class TowerBuilder : MonoBehaviour
                 __tower = DethronedUtility.FetchPooledGameObject(CreatedTowers, currentTower.Prefab);
                 __tower.transform.position = mouseWorldPos;
                 __tower.transform.rotation = Quaternion.identity;
+                __tower.GetComponent<Tower>().targetPrio = (Tower.TargetingPriority)TowerBuilderUI.Instance.targetPrio.value;
                 __tower.SetActive(true);
                 GameController.currency -= costOfTower;
 

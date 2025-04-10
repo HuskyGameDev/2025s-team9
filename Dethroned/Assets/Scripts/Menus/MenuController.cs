@@ -21,7 +21,8 @@ public class MenuController : MonoBehaviour
 
     public void OpenScene(string scene)
     {
-        SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
         SceneManager.UnloadSceneAsync(menu.scene);
     }
 
