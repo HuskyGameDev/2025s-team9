@@ -78,7 +78,6 @@ public class GameController : MonoBehaviour
     public void EndBuild() {
         state = State.intermission;
         endBuildButton.SetActive(false);
-        Debug.Log("Now choose to raise or lower taxes");
     }
 
     void Intermission() {
@@ -92,9 +91,7 @@ public class GameController : MonoBehaviour
         raisedTimes++;
         points = calcEnemies();
         pointsKilled = 0;
-        Debug.Log(points);
         state = State.defend;
-        Debug.Log("Taxes raised, now defending");
         buttons.SetActive(false);
     }
 
@@ -102,9 +99,7 @@ public class GameController : MonoBehaviour
         taxesRaised = false;
         points = calcEnemies();
         pointsKilled = 0;
-        Debug.Log(points);
         state = State.defend;
-        Debug.Log("Taxes not raised, now defending");
         buttons.SetActive(false);
     }
 
@@ -131,7 +126,6 @@ public class GameController : MonoBehaviour
             waveManager.SpawnWave(points, .2f, .1f, .3f, .2f);
         }
 
-        //TODO: change this to a more fitting value
         if (soulsCount >= 150) {
             WinGame();
         }
@@ -146,10 +140,6 @@ public class GameController : MonoBehaviour
                 currency += income;
             }
             AudioController.Instance.PlaySound(money[UnityEngine.Random.Range(0, money.Count)]);
-            Debug.Log("Wave won");
-        }
-        if (Input.GetKeyDown(KeyCode.L)) {
-            EnemyDeath(1, 1);
         }
     }
 

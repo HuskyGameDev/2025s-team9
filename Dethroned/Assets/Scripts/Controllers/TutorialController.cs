@@ -50,14 +50,17 @@ public class TutorialController : MonoBehaviour
                 break;
             case 2:
                 textbox.text = tutorialText[2];
+                hp.SetActive(false);
                 money.SetActive(true);
                 break;
             case 3:
                 textbox.text = tutorialText[3];
+                money.SetActive(false);
                 souls.SetActive(true);
                 break;
             case 4:
                 textbox.text = tutorialText[4];
+                souls.SetActive(false);
                 break;
             case 5:
                 textbox.text = tutorialText[5];
@@ -65,10 +68,12 @@ public class TutorialController : MonoBehaviour
                 break;
             case 6:
                 textbox.text = tutorialText[6];
+                stowers.SetActive(false);
                 target.SetActive(true);
                 break;
             case 7:
                 textbox.text = tutorialText[7];
+                target.SetActive(false);
                 break;
             case 8:
                 textbox.text = tutorialText[8];
@@ -77,6 +82,8 @@ public class TutorialController : MonoBehaviour
                 break;
             case 9:
                 textbox.text = tutorialText[9];
+                end.SetActive(false);
+                endButton.SetActive(false);
                 break;
             case 10:
                 textbox.text = tutorialText[10];

@@ -16,16 +16,9 @@ public class Castle : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            TakeDamage(1);
-        }
-
-        //TODO: gameover when castle dies (for now just going to print a debug and destroy the castle object)
         if(currentHealth <= 0)
         {
-            Debug.Log("Castle is destroyed, game over");
             gameController.GameOver();
-            //GameController.state = GameController.State.build;
             Destroy(gameObject);
         }
     }

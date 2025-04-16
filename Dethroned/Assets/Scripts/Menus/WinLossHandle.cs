@@ -12,8 +12,6 @@ public class WinLossHandle : MonoBehaviour
 
     public void EndGame()
     {
-        //TODO: Remove debug
-        Debug.Log("Application Has been quit");
         Application.Quit();
     }
 }
